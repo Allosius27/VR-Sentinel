@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: 09395280689f0844ca44b158efc87fa7
+timeCreated: 1512500608
+licenseType: Free
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000210000002200000023000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 735a13f653e794c5ce66441c46283cfa
+  longitude: -105.242139
+  latitude: 40.018309
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: -2.5629077, y: 5.520242, z: -11.991621}
+      lookAt: {x: 0.20148046, y: 1.4994785, z: -1.7913436}
+      up: {x: 0.093013965, y: 0.9346415, z: 0.3432109}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes: []
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Blanc
+    100002: Bleu
+    100004: Bois
+    100006: Brochures
+    100008: Brochures 1
+    100010: Brochures 2
+    100012: Brochures 3
+    100014: Brochures 4
+    100016: Brochures 5
+    100018: Brochures 6
+    100020: Brochures 7
+    100022: Chaises
+    100024: Chaises_MeshPart0
+    100026: Chaises_MeshPart1
+    100028: Chaises_MeshPart2
+    100030: Group 12
+    100032: Metal
+    100034: Metal_MeshPart0
+    100036: Metal_MeshPart1
+    100038: Orange
+    100040: //RootNode
+    100042: tutoaffiche
+    100044: Verre
+    100046: Metal_MeshPart2
+    400000: Blanc
+    400002: Bleu
+    400004: Bois
+    400006: Brochures
+    400008: Brochures 1
+    400010: Brochures 2
+    400012: Brochures 3
+    400014: Brochures 4
+    400016: Brochures 5
+    400018: Brochures 6
+    400020: Brochures 7
+    400022: Chaises
+    400024: Chaises_MeshPart0
+    400026: Chaises_MeshPart1
+    400028: Chaises_MeshPart2
+    400030: Group 12
+    400032: Metal
+    400034: Metal_MeshPart0
+    400036: Metal_MeshPart1
+    400038: Orange
+    400040: //RootNode
+    400042: tutoaffiche
+    400044: Verre
+    400046: Metal_MeshPart2
+    2300000: Blanc
+    2300002: Bleu
+    2300004: Bois
+    2300006: Brochures
+    2300008: Brochures 1
+    2300010: Brochures 2
+    2300012: Brochures 3
+    2300014: Brochures 4
+    2300016: Brochures 5
+    2300018: Brochures 6
+    2300020: Brochures 7
+    2300022: Chaises_MeshPart0
+    2300024: Chaises_MeshPart1
+    2300026: Chaises_MeshPart2
+    2300028: Group 12
+    2300030: Metal_MeshPart0
+    2300032: Metal_MeshPart1
+    2300034: Orange
+    2300036: //RootNode
+    2300038: tutoaffiche
+    2300040: Verre
+    2300042: Metal_MeshPart2
+    3300000: Blanc
+    3300002: Bleu
+    3300004: Bois
+    3300006: Brochures
+    3300008: Brochures 1
+    3300010: Brochures 2
+    3300012: Brochures 3
+    3300014: Brochures 4
+    3300016: Brochures 5
+    3300018: Brochures 6
+    3300020: Brochures 7
+    3300022: Chaises_MeshPart0
+    3300024: Chaises_MeshPart1
+    3300026: Chaises_MeshPart2
+    3300028: Group 12
+    3300030: Metal_MeshPart0
+    3300032: Metal_MeshPart1
+    3300034: Orange
+    3300036: //RootNode
+    3300038: tutoaffiche
+    3300040: Verre
+    3300042: Metal_MeshPart2
+    4300000: Mesh Tuto_stand
+    4300002: Mesh Verre
+    4300004: Mesh Metal_MeshPart0
+    4300006: Mesh Metal_MeshPart1
+    4300008: Mesh Blanc
+    4300010: Mesh tutoaffiche
+    4300012: Mesh Bleu
+    4300014: Mesh Group 12
+    4300016: Mesh Chaises_MeshPart0
+    4300018: Mesh Chaises_MeshPart1
+    4300020: Mesh Chaises_MeshPart2
+    4300022: Mesh Orange
+    4300024: Mesh Brochures
+    4300026: Mesh Brochures
+    4300028: Mesh Brochures
+    4300030: Mesh Brochures
+    4300032: Mesh Brochures
+    4300034: Mesh Brochures
+    4300036: Mesh Brochures
+    4300038: Mesh Brochures
+    4300040: Mesh Bois
+    4300042: Mesh Metal_MeshPart2
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

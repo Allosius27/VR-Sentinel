@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 3307851d1d381d54a880c4dfef108c93
+timeCreated: 1512557402
+licenseType: Free
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 85081492b0a8579419a48ebdac3e01be
+  longitude: 2.333
+  latitude: 48.867
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: -0.79904324, y: 3.0603607, z: -1.7485448}
+      lookAt: {x: 6.448449, y: -8.293162, z: 1.7092086}
+      up: {x: 0.7368642, y: 0.57744277, z: 0.35155535}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes:
+    - camera:
+        position: {x: 1.4994977, y: 0.6198761, z: -2.2852707}
+        lookAt: {x: -3.7260036, y: -0.79418766, z: 10.524071}
+        up: {x: -0.0384089, y: 0.99481666, z: 0.09415226}
+        fov: 35
+        aspectRatio: 0
+        orthoSize: 1
+        isPerspective: 1
+      name: "Sc\xE8ne 1"
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Meuble
+    100002: //RootNode
+    100004: pieds
+    100006: pieds 1
+    100008: pieds 2
+    100010: pieds 3
+    100012: Porte
+    100014: Porte2
+    100016: structure
+    100018: tirroir
+    100020: tirroir 1
+    100022: tirroir 2
+    400000: Meuble
+    400002: //RootNode
+    400004: pieds
+    400006: pieds 1
+    400008: pieds 2
+    400010: pieds 3
+    400012: Porte
+    400014: Porte2
+    400016: structure
+    400018: tirroir
+    400020: tirroir 1
+    400022: tirroir 2
+    2300000: pieds
+    2300002: pieds 1
+    2300004: pieds 2
+    2300006: pieds 3
+    2300008: Porte
+    2300010: Porte2
+    2300012: structure
+    2300014: tirroir
+    2300016: tirroir 1
+    2300018: tirroir 2
+    3300000: pieds
+    3300002: pieds 1
+    3300004: pieds 2
+    3300006: pieds 3
+    3300008: Porte
+    3300010: Porte2
+    3300012: structure
+    3300014: tirroir
+    3300016: tirroir 1
+    3300018: tirroir 2
+    4300000: Mesh structure
+    4300002: Mesh pieds
+    4300004: Mesh tirroir
+    4300006: Mesh Porte
+    4300008: Mesh Porte2
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
