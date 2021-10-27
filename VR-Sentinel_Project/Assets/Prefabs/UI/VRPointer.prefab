@@ -129,7 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLenght: 5
   dot: {fileID: 2808872320740601590}
-  inputModule: {fileID: 0}
+  inputModule: {fileID: 6266074996843715724, guid: 0319b9f97b8f6dc43a2121a71b19b41b,
+    type: 3}
 --- !u!20 &2808872321043823283
 Camera:
   m_ObjectHideFlags: 0

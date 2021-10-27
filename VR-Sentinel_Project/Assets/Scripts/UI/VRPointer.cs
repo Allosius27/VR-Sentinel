@@ -1,16 +1,26 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class VRPointer : MonoBehaviour {
+
+    private int debugTextValue;
+
     //todo desactiver quand on est opas sur un menu
     [SerializeField] private float defaultLenght = 5f;
     [SerializeField] private GameObject dot;
     [SerializeField] private VRInputModule inputModule;
+    [SerializeField] private Text debugText;
 
     private LineRenderer lineRenderer;
 
     private void Awake() {
         lineRenderer ??= GetComponent<LineRenderer>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update() {
@@ -24,6 +34,14 @@ public class VRPointer : MonoBehaviour {
         RaycastHit hit = CreateRaycast(targetLenght);
         Vector3 endPosition = transform.position + (transform.forward * targetLenght);
         if(hit.collider != null) {
+
+            Debug.Log(hit.collider.gameObject.name);
+            debugTextValue++;
+            if(debugTextValue > 9999)
+            {
+                debugTextValue = 0;
+            }
+            debugText.text = debugTextValue.ToString();
             endPosition = hit.point;
         }
 
