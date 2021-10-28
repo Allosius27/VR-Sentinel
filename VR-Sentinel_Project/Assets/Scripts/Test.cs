@@ -23,12 +23,12 @@ public class Test : MonoBehaviour
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         Debug.Log("Trigger is up");
-        Sphere.GetComponent<MeshRenderer>().material.color = newColor;
+        Sphere.GetComponent<MeshRenderer>().material.color = baseColor;
     }
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         Debug.Log("Trigger is down");
-        Sphere.GetComponent<MeshRenderer>().material.color = baseColor;
+        Sphere.GetComponent<MeshRenderer>().material.color = newColor;
     }
 
     void Update()

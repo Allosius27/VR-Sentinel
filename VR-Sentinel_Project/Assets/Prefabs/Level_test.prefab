@@ -47,6 +47,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7897882273933248778}
+  - component: {fileID: 3861261217970402060}
   m_Layer: 0
   m_Name: Level_test
   m_TagString: Untagged
@@ -76,6 +77,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3861261217970402060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281566757055576245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3dabcbe5d62a994fa35d0b6c8f33d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listCells: []
 --- !u!1 &8715260835755071616
 GameObject:
   m_ObjectHideFlags: 0
