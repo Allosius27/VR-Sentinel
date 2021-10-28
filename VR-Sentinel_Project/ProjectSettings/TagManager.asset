@@ -7,6 +7,8 @@ TagManager:
   - ScorePointAmountSpawn
   - TimeSuccessTextPointSpawn
   - DepthSuccessTextPointSpawn
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - UI
   - Ground
   - Spectator
-  - 
+  - Teleport
   - 
   - 
   - 

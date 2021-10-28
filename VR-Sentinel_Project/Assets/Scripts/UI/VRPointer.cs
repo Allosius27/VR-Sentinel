@@ -33,15 +33,27 @@ public class VRPointer : MonoBehaviour {
 
         RaycastHit hit = CreateRaycast(targetLenght);
         Vector3 endPosition = transform.position + (transform.forward * targetLenght);
-        if(hit.collider != null) {
+        if(hit.collider != null && hit.collider.gameObject.layer != 5) {
 
             Debug.Log(hit.collider.gameObject.name);
+
+            Cell cell = hit.collider.GetComponent<Cell>();
+            if (cell != null)
+            {
+                cell.SetTeleportPointLocked(false);
+            }
+
             debugTextValue++;
             if(debugTextValue > 9999)
             {
                 debugTextValue = 0;
             }
-            debugText.text = debugTextValue.ToString();
+
+            if (debugText != null)
+            {
+                debugText.text = debugTextValue.ToString();
+            }
+
             endPosition = hit.point;
         }
 
@@ -52,6 +64,11 @@ public class VRPointer : MonoBehaviour {
     }
 
     private RaycastHit CreateRaycast(float lenght) {
+        for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
+        {
+            GameCore.Instance.ListCells[i].SetTeleportPointLocked(true);
+        }
+
         Ray ray = new Ray(transform.position, transform.forward);
         Physics.Raycast(ray, out RaycastHit hit, defaultLenght);
         return hit;

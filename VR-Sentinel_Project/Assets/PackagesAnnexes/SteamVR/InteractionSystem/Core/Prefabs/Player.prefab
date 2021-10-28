@@ -2850,6 +2850,11 @@ PrefabInstance:
       propertyPath: inputModule
       value: 
       objectReference: {fileID: 5797656480866112448}
+    - target: {fileID: 2808872321043823282, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
+        type: 3}
+      propertyPath: defaultLenght
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82890af9c6c7e0946b31fff7b99fc6f3, type: 3}
 --- !u!4 &3959069867448020919 stripped
