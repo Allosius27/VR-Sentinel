@@ -296,6 +296,7 @@ MonoBehaviour:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   handType: 2
+  absorptionKey: 282
 --- !u!1 &109154
 GameObject:
   m_ObjectHideFlags: 0

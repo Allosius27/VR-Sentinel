@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
     public SteamVR_Action_Boolean AbsorbObject;
     // a reference to the hand
     public SteamVR_Input_Sources handType;
+
+    public KeyCode absorptionKey;
     
 
     #endregion
@@ -42,16 +44,24 @@ public class PlayerManager : MonoBehaviour
         AbsorbObject.AddOnStateUpListener(TriggerUp, handType);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(absorptionKey))
+        {
+            Absorption();
+        }
+    }
+
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         Debug.Log("Trigger is up");
         
     }
+
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         Debug.Log("Trigger is down");
         Absorption();
-        
     }
 
     [ContextMenu("Absorption")]
