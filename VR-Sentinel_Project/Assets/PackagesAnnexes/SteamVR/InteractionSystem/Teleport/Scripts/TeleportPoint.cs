@@ -94,6 +94,11 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Update()
 		{
+			if(locked == false)
+            {
+				Debug.Log(gameObject.name + " not locked");
+            }
+
 			if ( Application.isPlaying )
 			{
 				lookAtPosition.x = player.hmdTransform.position.x;

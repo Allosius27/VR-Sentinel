@@ -40,7 +40,17 @@ public class VRPointer : MonoBehaviour {
             Cell cell = hit.collider.GetComponent<Cell>();
             if (cell != null)
             {
-                cell.SetTeleportPointLocked(false);
+                if (cell.CellEmpty)
+                {
+                    cell.SetTeleportPointLocked(false);
+                }
+                else
+                {
+                    GameCore.Instance.PlayerManager.cellObjectSelected = cell;
+                    cell.CurrentCellObject.GetComponent<AbsorbableObject>().Outline.enabled = true;
+                }
+
+                cell.SetHoverVisualColor(true);
             }
 
             debugTextValue++;
@@ -64,9 +74,20 @@ public class VRPointer : MonoBehaviour {
     }
 
     private RaycastHit CreateRaycast(float lenght) {
+
+        Debug.Log("CreateRaycast");
+
+        GameCore.Instance.PlayerManager.cellObjectSelected = null;
+
         for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
         {
             GameCore.Instance.ListCells[i].SetTeleportPointLocked(true);
+            GameCore.Instance.ListCells[i].SetHoverVisualColor(false);
+
+            if(GameCore.Instance.ListCells[i].CurrentCellObject != null)
+            {
+                GameCore.Instance.ListCells[i].CurrentCellObject.GetComponent<AbsorbableObject>().Outline.enabled = false;
+            }
         }
 
         Ray ray = new Ray(transform.position, transform.forward);

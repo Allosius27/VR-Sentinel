@@ -8,13 +8,24 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private List<Cell> listCells = new List<Cell>();
 
+    private PlayerManager playerManager;
+
     #endregion
 
     #region Properties
 
     public List<Cell> ListCells => listCells;
 
+    public PlayerManager PlayerManager => playerManager;
+
     #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        playerManager = FindObjectOfType<PlayerManager>();
+    }
 
     private void Start()
     {
