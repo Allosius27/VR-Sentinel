@@ -40,15 +40,17 @@ public class VRPointer : MonoBehaviour {
             Cell cell = hit.collider.GetComponent<Cell>();
             if (cell != null)
             {
-                if (cell.CellEmpty)
+                if (cell.CanTeleport)
                 {
                     cell.SetTeleportPointLocked(false);
                 }
-                else
+
+                if(cell.CellEmpty == false && cell.CurrentCellObjects.Count >= 1)
                 {
-                    GameCore.Instance.PlayerManager.cellObjectSelected = cell;
-                    cell.CurrentCellObject.GetComponent<AbsorbableObject>().Outline.enabled = true;
+                    cell.CurrentCellObjects[cell.CurrentCellObjects.Count-1].GetComponent<AbsorbableObject>().Outline.enabled = true;
                 }
+                
+                GameCore.Instance.PlayerManager.cellObjectSelected = cell;
 
                 cell.SetHoverVisualColor(true);
             }
@@ -84,9 +86,13 @@ public class VRPointer : MonoBehaviour {
             GameCore.Instance.ListCells[i].SetTeleportPointLocked(true);
             GameCore.Instance.ListCells[i].SetHoverVisualColor(false);
 
-            if(GameCore.Instance.ListCells[i].CurrentCellObject != null)
+            if(GameCore.Instance.ListCells[i].CurrentCellObjects.Count >= 1)
             {
-                GameCore.Instance.ListCells[i].CurrentCellObject.GetComponent<AbsorbableObject>().Outline.enabled = false;
+                for (int j = 0; j < GameCore.Instance.ListCells[i].CurrentCellObjects.Count; j++)
+                {
+                    GameCore.Instance.ListCells[i].CurrentCellObjects[j].GetComponent<AbsorbableObject>().Outline.enabled = false;
+                }
+                
             }
         }
 

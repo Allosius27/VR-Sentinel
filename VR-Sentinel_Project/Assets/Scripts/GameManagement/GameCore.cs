@@ -18,6 +18,14 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public PlayerManager PlayerManager => playerManager;
 
+    public GameObject SynthoidPrefab => synthoidPrefab;
+
+    #endregion
+
+    #region Behaviour
+
+    [SerializeField] private GameObject synthoidPrefab;
+
     #endregion
 
     protected override void Awake()

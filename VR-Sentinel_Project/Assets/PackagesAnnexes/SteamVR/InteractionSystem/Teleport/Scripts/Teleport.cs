@@ -856,6 +856,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void TeleportPlayer()
 		{
+			Debug.Log("Teleport Player");
 			teleporting = false;
 
 			Teleport.PlayerPre.Send( pointedAtTeleportMarker );

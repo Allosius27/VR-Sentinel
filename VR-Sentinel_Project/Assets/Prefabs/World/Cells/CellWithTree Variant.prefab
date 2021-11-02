@@ -112,6 +112,16 @@ PrefabInstance:
       propertyPath: currentCellObject
       value: 
       objectReference: {fileID: 3779227991810775250}
+    - target: {fileID: 3245243786396059772, guid: eff34c7a60ed03b4bb02ac875e5571d3,
+        type: 3}
+      propertyPath: currentCellObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245243786396059772, guid: eff34c7a60ed03b4bb02ac875e5571d3,
+        type: 3}
+      propertyPath: currentCellObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 3779227991810775250}
     - target: {fileID: 3332317820343404134, guid: eff34c7a60ed03b4bb02ac875e5571d3,
         type: 3}
       propertyPath: m_RootOrder

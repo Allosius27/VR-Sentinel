@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90ee101bbbad9044b3e4346d235c7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLenght: 5
+  defaultLenght: 15
   dot: {fileID: 2808872320740601590}
-  inputModule: {fileID: 6266074996843715724, guid: 0319b9f97b8f6dc43a2121a71b19b41b,
-    type: 3}
+  inputModule: {fileID: 0}
+  debugText: {fileID: 0}
 --- !u!20 &2808872321043823283
 Camera:
   m_ObjectHideFlags: 0

@@ -17,11 +17,23 @@ public class AbsorbableObject : MonoBehaviour
 
     public int EnergyPoints => energyPoints;
 
+    public bool StackableObject => stackableObject;
+    public bool CanTeleportObject => canTeleportObject;
+    public bool PlaceableOnStack => placeableOnStack;
+
+    public Transform ObjectSpawnPoint => objectSpawnPoint;
+
     #endregion
 
     #region UnityInspector
 
     [SerializeField] private int energyPoints;
+
+    [SerializeField] private bool stackableObject;
+    [SerializeField] private bool canTeleportObject;
+    [SerializeField] private bool placeableOnStack;
+
+    [SerializeField] private Transform objectSpawnPoint;
 
     #endregion
 

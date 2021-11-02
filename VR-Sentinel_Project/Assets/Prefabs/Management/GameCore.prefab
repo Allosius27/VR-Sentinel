@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPersistant: 0
+  synthoidPrefab: {fileID: 8884328232011474380, guid: 4685fb63d117e1e43b0133f99497e6ba,
+    type: 3}
