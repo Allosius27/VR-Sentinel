@@ -291,11 +291,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded0c8cd2bfd08940a26645789f40d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlayerCell: {fileID: 0}
   currentEnergyPoints: 5
+  handType: 2
+  handType02: 1
   AbsorbObject:
+    actionPath: /actions/default/in/Teleport
+    needsReinit: 0
+  CreateObject:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
-  handType: 2
+  TeleportObject:
+    actionPath: /actions/default/in/Teleport
+    needsReinit: 0
   absorptionKey: 282
   teleportKey: 284
   createObjectKey: 285

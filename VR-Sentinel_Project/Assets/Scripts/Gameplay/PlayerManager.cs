@@ -26,10 +26,14 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int currentEnergyPoints;
 
+    // a reference to the hand
+    public SteamVR_Input_Sources handType, handType02;
+
     // a reference to the action
     public SteamVR_Action_Boolean AbsorbObject;
-    // a reference to the hand
-    public SteamVR_Input_Sources handType;
+
+    // a reference to the action
+    public SteamVR_Action_Boolean CreateObject;
 
     // a reference to the action
     public SteamVR_Action_Boolean TeleportObject;
@@ -47,8 +51,11 @@ public class PlayerManager : MonoBehaviour
 
         playerCanvasManager.SetEnergyPoints(currentEnergyPoints);
 
-        AbsorbObject.AddOnStateDownListener(TriggerDown, handType);
-        AbsorbObject.AddOnStateUpListener(TriggerUp, handType);
+        AbsorbObject.AddOnStateDownListener(AbsorbTriggerDown, handType02);
+        AbsorbObject.AddOnStateUpListener(AbsorbTriggerUp, handType02);
+
+        CreateObject.AddOnStateDownListener(CreateTriggerDown, handType);
+        CreateObject.AddOnStateUpListener(CreateTriggerUp, handType);
 
         TeleportObject.AddOnStateDownListener(TeleportTriggerDown, handType);
         TeleportObject.AddOnStateUpListener(TeleportTriggerUp, handType);
@@ -73,28 +80,39 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void AbsorbTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is up");
+        Debug.Log("Absorption Trigger is up");
         
     }
 
-    public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void AbsorbTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is down");
+        Debug.Log("Absorption Trigger is down");
         Absorption();
+    }
+
+    public void CreateTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Create Trigger is up");
+
+    }
+
+    public void CreateTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Create Trigger is down");
         Create();
     }
 
     public void TeleportTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is up");
+        Debug.Log("Teleport Trigger is up");
 
     }
 
     public void TeleportTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is down");
+        Debug.Log("Teleport Trigger is down");
         Teleport();
 
     }
