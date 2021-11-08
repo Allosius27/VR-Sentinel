@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerCanvasManager playerCanvasManager;
 
+    private bool constructionModeActive;
+
 
     #endregion
 
@@ -30,10 +32,10 @@ public class PlayerManager : MonoBehaviour
     public SteamVR_Input_Sources handType, handType02;
 
     // a reference to the action
-    public SteamVR_Action_Boolean AbsorbObject;
+    public SteamVR_Action_Boolean BuildActive;
 
     // a reference to the action
-    public SteamVR_Action_Boolean CreateObject;
+    public SteamVR_Action_Boolean ActionObject;
 
     // a reference to the action
     public SteamVR_Action_Boolean TeleportObject;
@@ -51,11 +53,11 @@ public class PlayerManager : MonoBehaviour
 
         playerCanvasManager.SetEnergyPoints(currentEnergyPoints);
 
-        AbsorbObject.AddOnStateDownListener(AbsorbTriggerDown, handType02);
-        AbsorbObject.AddOnStateUpListener(AbsorbTriggerUp, handType02);
+        BuildActive.AddOnStateDownListener(BuildActiveTriggerDown, handType02);
+        BuildActive.AddOnStateUpListener(BuildActiveTriggerUp, handType02);
 
-        CreateObject.AddOnStateDownListener(CreateTriggerDown, handType);
-        CreateObject.AddOnStateUpListener(CreateTriggerUp, handType);
+        ActionObject.AddOnStateDownListener(ActionTriggerDown, handType02);
+        ActionObject.AddOnStateUpListener(ActionTriggerUp, handType02);
 
         TeleportObject.AddOnStateDownListener(TeleportTriggerDown, handType);
         TeleportObject.AddOnStateUpListener(TeleportTriggerUp, handType);
@@ -80,28 +82,36 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void AbsorbTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void BuildActiveTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Absorption Trigger is up");
-        
+        Debug.Log("Build Active Trigger is up");
+        BuildActivation(false);
     }
 
-    public void AbsorbTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void BuildActiveTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Absorption Trigger is down");
-        Absorption();
+        Debug.Log("Build Active Trigger is down");
+        BuildActivation(true);
     }
 
-    public void CreateTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void ActionTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Create Trigger is up");
+        Debug.Log("Action Trigger is up");
 
     }
 
-    public void CreateTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    public void ActionTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Create Trigger is down");
-        Create();
+        Debug.Log("Action Trigger is down");
+
+        if (constructionModeActive)
+        {
+            Create();
+        }
+        else
+        {
+            Absorption();
+        }
     }
 
     public void TeleportTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -115,6 +125,11 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Teleport Trigger is down");
         Teleport();
 
+    }
+
+    public void BuildActivation(bool value)
+    {
+        constructionModeActive = value;
     }
 
     [ContextMenu("Absorption")]

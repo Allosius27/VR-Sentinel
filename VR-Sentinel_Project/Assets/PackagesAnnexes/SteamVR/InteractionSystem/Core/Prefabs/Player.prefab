@@ -295,14 +295,14 @@ MonoBehaviour:
   currentEnergyPoints: 5
   handType: 2
   handType02: 1
-  AbsorbObject:
+  BuildActive:
     actionPath: /actions/default/in/Teleport
     needsReinit: 0
-  CreateObject:
+  ActionObject:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   TeleportObject:
-    actionPath: /actions/default/in/Teleport
+    actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   absorptionKey: 282
   teleportKey: 284

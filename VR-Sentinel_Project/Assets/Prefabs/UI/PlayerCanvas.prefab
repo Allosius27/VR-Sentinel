@@ -796,15 +796,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e8383f6af22da4a9610a7f3755ca04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   energyPoints: {fileID: 5628470696208482635}
   listCreationsSlots:
   - {fileID: 6569239705440110019}
   - {fileID: 4267157755111151902}
   - {fileID: 6759123941820472104}
   ChangeSlotCreateObject:
-    actionPath: /actions/default/in/GrabPinch
+    actionPath: /actions/default/in/Teleport
     needsReinit: 0
-  handType: 1
+  handType: 2
   changeSlotKey: 283
 --- !u!1 &5628470694877664324
 GameObject:
