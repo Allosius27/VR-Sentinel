@@ -22,6 +22,8 @@ public class Cell : MonoBehaviour
 
     public Color HoverColor => hoverColor;
 
+    public GameObject previewInstantiateObject { get; set; }
+
     public List<GameObject> CurrentCellObjects => currentCellObjects;
 
     public TeleportationPoint TeleportPoint => teleportPoint;

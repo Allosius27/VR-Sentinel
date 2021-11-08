@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerCanvasManager playerCanvasManager;
 
-    private bool constructionModeActive;
 
 
     #endregion
@@ -19,6 +18,8 @@ public class PlayerManager : MonoBehaviour
     public CreationSlot currentCreationSlotSelected { get; set; }
 
     public Cell cellObjectSelected { get; set; }
+
+    public bool constructionModeActive { get; protected set; }
 
     #endregion
 
@@ -40,7 +41,7 @@ public class PlayerManager : MonoBehaviour
     // a reference to the action
     public SteamVR_Action_Boolean TeleportObject;
 
-    public KeyCode absorptionKey, teleportKey, createObjectKey;
+    public KeyCode absorptionKey, teleportKey, createObjectKey, buildModeActiveKey;
     
 
     #endregion
@@ -78,6 +79,15 @@ public class PlayerManager : MonoBehaviour
         if(Input.GetKeyDown(createObjectKey))
         {
             Create();
+        }
+
+        if(Input.GetKeyDown(buildModeActiveKey) && !constructionModeActive)
+        {
+            constructionModeActive = true;
+        }
+        else if (Input.GetKeyDown(buildModeActiveKey) && constructionModeActive)
+        {
+            constructionModeActive = false;
         }
 
     }
@@ -180,6 +190,58 @@ public class PlayerManager : MonoBehaviour
                     InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
 
                     ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired);
+                }
+            }
+        }
+    }
+
+    public void PreviewObject()
+    {
+        Debug.Log("Preview");
+        if (cellObjectSelected != null && currentCreationSlotSelected != null && currentCreationSlotSelected.energyPointsRequired <= currentEnergyPoints)
+        {
+            if (cellObjectSelected.CellEmpty)
+            {
+                if(cellObjectSelected.previewInstantiateObject != null)
+                {
+                    Destroy(cellObjectSelected.previewInstantiateObject);
+                }
+                GameObject _object = Instantiate(currentCreationSlotSelected.PrefabObjectCreate.GetComponent<AbsorbableObject>().PreviewObject);
+                cellObjectSelected.previewInstantiateObject = _object;
+                if (cellObjectSelected.CellEmpty)
+                {
+                    _object.transform.SetParent(cellObjectSelected.ObjectSpawnPoint);
+                }
+                else
+                {
+                    _object.transform.SetParent(cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
+                }
+
+                _object.transform.localPosition = Vector3.zero;
+                _object.transform.rotation = Quaternion.identity;
+            }
+            else if (cellObjectSelected.CellEmpty == false && cellObjectSelected.Stackable)
+            {
+                if (currentCreationSlotSelected.PrefabObjectCreate.GetComponent<AbsorbableObject>().PlaceableOnStack)
+                {
+                    if (cellObjectSelected.previewInstantiateObject != null)
+                    {
+                        Destroy(cellObjectSelected.previewInstantiateObject);
+                    }
+                    GameObject _object = Instantiate(currentCreationSlotSelected.PrefabObjectCreate.GetComponent<AbsorbableObject>().PreviewObject);
+                    cellObjectSelected.previewInstantiateObject = _object;
+                    if (cellObjectSelected.CellEmpty)
+                    {
+
+                        _object.transform.SetParent(cellObjectSelected.ObjectSpawnPoint);
+                    }
+                    else
+                    {
+                        _object.transform.SetParent(cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
+                    }
+
+                    _object.transform.localPosition = Vector3.zero;
+                    _object.transform.rotation = Quaternion.identity;
                 }
             }
         }

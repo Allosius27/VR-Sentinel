@@ -23,6 +23,8 @@ public class AbsorbableObject : MonoBehaviour
 
     public Transform ObjectSpawnPoint => objectSpawnPoint;
 
+    public GameObject PreviewObject => previewObject;
+
     #endregion
 
     #region UnityInspector
@@ -34,6 +36,8 @@ public class AbsorbableObject : MonoBehaviour
     [SerializeField] private bool placeableOnStack;
 
     [SerializeField] private Transform objectSpawnPoint;
+
+    [SerializeField] private GameObject previewObject;
 
     #endregion
 

@@ -51,8 +51,13 @@ public class VRPointer : MonoBehaviour {
                 }
                 
                 GameCore.Instance.PlayerManager.cellObjectSelected = cell;
+                if (GameCore.Instance.PlayerManager.constructionModeActive)
+                {
+                    GameCore.Instance.PlayerManager.PreviewObject();
+                }
 
                 cell.SetHoverVisualColor(true);
+                
             }
 
             debugTextValue++;
@@ -79,12 +84,15 @@ public class VRPointer : MonoBehaviour {
 
         Debug.Log("CreateRaycast");
 
-        GameCore.Instance.PlayerManager.cellObjectSelected = null;
 
         for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
         {
             GameCore.Instance.ListCells[i].SetTeleportPointLocked(true);
             GameCore.Instance.ListCells[i].SetHoverVisualColor(false);
+            if(GameCore.Instance.ListCells[i].previewInstantiateObject != null )
+            {
+                Destroy(GameCore.Instance.ListCells[i].previewInstantiateObject);
+            }
 
             if(GameCore.Instance.ListCells[i].CurrentCellObjects.Count >= 1)
             {
@@ -95,6 +103,8 @@ public class VRPointer : MonoBehaviour {
                 
             }
         }
+
+        GameCore.Instance.PlayerManager.cellObjectSelected = null;
 
         Ray ray = new Ray(transform.position, transform.forward);
         Physics.Raycast(ray, out RaycastHit hit, defaultLenght);

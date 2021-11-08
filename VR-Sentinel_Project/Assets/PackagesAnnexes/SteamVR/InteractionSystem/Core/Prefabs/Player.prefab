@@ -307,6 +307,7 @@ MonoBehaviour:
   absorptionKey: 282
   teleportKey: 284
   createObjectKey: 285
+  buildModeActiveKey: 98
 --- !u!1 &109154
 GameObject:
   m_ObjectHideFlags: 0

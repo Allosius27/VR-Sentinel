@@ -6863,6 +6863,8 @@ MonoBehaviour:
   canTeleportObject: 0
   placeableOnStack: 0
   objectSpawnPoint: {fileID: 0}
+  previewObject: {fileID: 3835825816518824185, guid: 21c7be8eefb63434797b022fc3c926a5,
+    type: 3}
 --- !u!1 &5756571774913635682
 GameObject:
   m_ObjectHideFlags: 0
