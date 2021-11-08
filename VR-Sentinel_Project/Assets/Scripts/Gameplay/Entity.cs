@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     {
         Default,
         AbsorbableObject,
+        Sentinel,
     }
 
     public Type type;

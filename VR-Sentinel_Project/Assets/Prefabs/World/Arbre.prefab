@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 890840966270828236}
   - component: {fileID: 5846306533041866734}
   - component: {fileID: 9011456505464572097}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arbre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5998330242168410335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 816543508584173848}
   - component: {fileID: 4730335325339884701}
   - component: {fileID: 2809457078186985655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arbre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6876,7 +6876,7 @@ GameObject:
   - component: {fileID: 4924044037931986464}
   - component: {fileID: 8069269136458406510}
   - component: {fileID: 3612921453785019745}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: module_etalon (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6953,6 +6953,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4962714188276490520}
     m_Modifications:
+    - target: {fileID: 138356, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_RootOrder
       value: 1

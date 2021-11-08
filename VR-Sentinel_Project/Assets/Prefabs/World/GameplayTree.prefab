@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5279048875314958726}
   - component: {fileID: 6987886354243200414}
   - component: {fileID: 3859369497857609694}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameplayTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6758,6 +6758,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5170945421085091777}
     m_Modifications:
+    - target: {fileID: 138356, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_RootOrder
       value: 0

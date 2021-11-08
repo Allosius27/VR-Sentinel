@@ -19,9 +19,9 @@ TagManager:
   - Ground
   - Spectator
   - Teleport
-  - 
-  - 
-  - 
+  - Player
+  - Obstacle
+  - CellPlayer
   - 
   - 
   - 

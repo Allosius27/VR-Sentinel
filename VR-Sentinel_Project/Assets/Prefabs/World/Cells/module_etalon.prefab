@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2211799711966836235}
   - component: {fileID: 8351897389510873948}
   - component: {fileID: 9173352638022255123}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TeleportationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 1736129641263865401}
   - component: {fileID: 866116688629457320}
   - component: {fileID: 3476323390781902684}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: module_etalon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 2289366845961101038}
   - component: {fileID: 391763204746957137}
   - component: {fileID: 9211198968941285828}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: module_etalon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3411683512388583128}
   - component: {fileID: 4734126150899401627}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477912427302712149}
   - component: {fileID: 7734213613092194792}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6639478583566646909}
   - component: {fileID: 3122598158687214310}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6245268325403727116}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ObjectSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1905957013152455278}
   - component: {fileID: 8953346343962811356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 8502374047049003411}
   - component: {fileID: 8886592630468877331}
   - component: {fileID: 850558867798893963}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: teleport_marker_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
