@@ -7,21 +7,30 @@ public class Sentinel : MonoBehaviour
 
     #region Fields
 
-    private FieldOfView fieldOfView;
 
     private bool playerInSightRange;
+
+    private bool cellPlayerInSightRange;
+
+    #endregion
+
+    #region UnityInspector
+
+    [SerializeField] private SentinelView sentinelView;
 
     #endregion
 
     private void Awake()
     {
-        fieldOfView = GetComponent<FieldOfView>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerInSightRange = fieldOfView.canSeePlayer;
+        playerInSightRange = sentinelView.checkTargetInFieldOfView;
+
+        cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
     }
 
     [ContextMenu("Sentinel Rotate")]

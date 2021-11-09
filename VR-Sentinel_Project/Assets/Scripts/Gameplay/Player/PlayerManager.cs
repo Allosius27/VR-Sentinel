@@ -65,7 +65,16 @@ public class PlayerManager : MonoBehaviour
         TeleportObject.AddOnStateUpListener(TeleportTriggerUp, handType);
 
         transform.position = currentPlayerCell.ObjectSpawnPoint.position;
-        currentPlayerCell.gameObject.layer = 11;
+
+        currentPlayerCell.gameObject.layer = 0;
+        for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+        {
+            if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+            {
+                currentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
+            }
+        }
+        currentPlayerCell.VisualDetection.SetActive(true);
     }
 
     private void Update()
@@ -154,6 +163,8 @@ public class PlayerManager : MonoBehaviour
             
             DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
             cellObjectSelected = null;
+
+            GameCore.Instance.Sentinel.SentinelRotate();
         }
     }
 
@@ -166,9 +177,29 @@ public class PlayerManager : MonoBehaviour
             InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
 
             transform.position = cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].transform.position;
+            
             currentPlayerCell.gameObject.layer = 10;
+            for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+            {
+                if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+                {
+                    currentPlayerCell.transform.GetChild(i).gameObject.layer = 10;
+                }
+            }
+            currentPlayerCell.VisualDetection.SetActive(false);
+
             currentPlayerCell = cellObjectSelected;
-            currentPlayerCell.gameObject.layer = 11;
+
+            currentPlayerCell.gameObject.layer = 0;
+            for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+            {
+                if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+                {
+                    currentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
+                }
+            }
+            currentPlayerCell.VisualDetection.SetActive(true);
+
             DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
             cellObjectSelected = null;
 
@@ -186,6 +217,8 @@ public class PlayerManager : MonoBehaviour
                 InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
 
                 ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired);
+
+                GameCore.Instance.Sentinel.SentinelRotate();
             }
             else if(cellObjectSelected.CellEmpty == false && cellObjectSelected.Stackable)
             {
@@ -194,6 +227,8 @@ public class PlayerManager : MonoBehaviour
                     InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
 
                     ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired);
+
+                    GameCore.Instance.Sentinel.SentinelRotate();
                 }
             }
         }

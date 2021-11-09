@@ -10,6 +10,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private PlayerManager playerManager;
 
+    private Sentinel sentinel;
+
     #endregion
 
     #region Properties
@@ -17,6 +19,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     public List<Cell> ListCells => listCells;
 
     public PlayerManager PlayerManager => playerManager;
+
+    public Sentinel Sentinel => sentinel;
 
     public GameObject SynthoidPrefab => synthoidPrefab;
 
@@ -33,6 +37,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         base.Awake();
 
         playerManager = FindObjectOfType<PlayerManager>();
+        sentinel = FindObjectOfType<Sentinel>();
     }
 
     private void Start()

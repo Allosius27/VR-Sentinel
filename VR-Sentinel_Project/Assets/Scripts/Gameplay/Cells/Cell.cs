@@ -22,6 +22,8 @@ public class Cell : MonoBehaviour
 
     public Color HoverColor => hoverColor;
 
+    public GameObject VisualDetection => visualDetection;
+
     public GameObject previewInstantiateObject { get; set; }
 
     public List<GameObject> CurrentCellObjects => currentCellObjects;
@@ -38,6 +40,8 @@ public class Cell : MonoBehaviour
     [SerializeField] private bool cellEmpty;
 
     [SerializeField] private Color hoverColor;
+
+    [SerializeField] private GameObject visualDetection;
 
     [SerializeField] private TeleportationPoint teleportPoint;
     [SerializeField] private Transform objectSpawnPoint;
