@@ -1,4 +1,4 @@
-﻿public enum Scenes {
-    BootScene,
-    MainMenu,
+﻿public enum Scenes
+{
+    Level,
 }

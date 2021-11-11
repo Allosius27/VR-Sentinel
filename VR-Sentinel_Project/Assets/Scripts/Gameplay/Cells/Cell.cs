@@ -20,6 +20,8 @@ public class Cell : MonoBehaviour
     public bool Stackable => stackable;
     public bool CanTeleport => canTeleport;
 
+    public bool isSentinelPiedestal { get; set; }
+
     public Color HoverColor => hoverColor;
 
     public GameObject VisualDetection => visualDetection;

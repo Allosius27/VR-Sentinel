@@ -24,6 +24,11 @@ public class VRPointer : MonoBehaviour {
     }
 
     private void Update() {
+        if(GameCore.Instance == null)
+        {
+            return;
+        }
+
         UpdateLine();
     }
 

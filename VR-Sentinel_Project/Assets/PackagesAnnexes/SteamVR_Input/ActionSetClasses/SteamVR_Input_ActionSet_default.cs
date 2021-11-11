@@ -105,11 +105,11 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean CalibrateHand
+        public virtual SteamVR_Action_Boolean NewAction
         {
             get
             {
-                return SteamVR_Actions.default_CalibrateHand;
+                return SteamVR_Actions.default_NewAction;
             }
         }
         

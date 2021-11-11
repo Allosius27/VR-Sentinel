@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90ee101bbbad9044b3e4346d235c7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLenght: 15
+  defaultLenght: 30
   dot: {fileID: 2808872320740601590}
   inputModule: {fileID: 0}
   debugText: {fileID: 0}

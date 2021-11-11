@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using Valve.VR;
 
 public class PlayerCanvasManager : MonoBehaviour
@@ -14,7 +16,6 @@ public class PlayerCanvasManager : MonoBehaviour
     #region Properties
 
     public List<CreationSlot> ListCreationsSlots => listCreationsSlots;
-
     #endregion
 
     #region UnityInspector
@@ -24,6 +25,8 @@ public class PlayerCanvasManager : MonoBehaviour
     [SerializeField] private EnergyPoints energyPoints;
 
     [SerializeField] private List<CreationSlot> listCreationsSlots = new List<CreationSlot>();
+
+    [SerializeField] private GameObject menu;
 
     // a reference to the action
     public SteamVR_Action_Boolean ChangeSlotCreateObject;
@@ -50,6 +53,9 @@ public class PlayerCanvasManager : MonoBehaviour
         {
             ChangeSlot();
         }
+
+        /*if (Input.GetKeyDown(KeyCode.Escape))
+            OpenMenu();*/
     }
 
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -95,6 +101,39 @@ public class PlayerCanvasManager : MonoBehaviour
     public void SetEnergyPoints(int amount)
     {
         energyPoints.SetEnergyPointsAmount(amount);
+    }
+
+    public void OpenMenu()
+    {
+        
+            if(GameCore.Instance.isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                GameCore.Instance.isPaused = true;
+                menu.SetActive(true);
+            }
+    }
+
+    public void Resume()
+    {
+        menu.SetActive(false);
+        GameCore.Instance.isPaused = false;
+    }
+
+    public void Restart()
+    {
+        StartCoroutine(SceneLoader.Instance.LoadAsynchronously(GameCore.Instance.LevelSceneData, 0.2f));
+    }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#endif
+        Application.Quit();
     }
 
     #endregion

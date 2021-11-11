@@ -12,17 +12,35 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private Sentinel sentinel;
 
+    private List<GameObject> listEnemies = new List<GameObject>();
+
     #endregion
 
     #region Properties
 
+    public bool isPaused { get; set; }
+
+    public SceneData LevelSceneData => levelSceneData;
+
     public List<Cell> ListCells => listCells;
+
+    public List<GameObject> ListEnemies => listEnemies;
 
     public PlayerManager PlayerManager => playerManager;
 
     public Sentinel Sentinel => sentinel;
 
     public GameObject SynthoidPrefab => synthoidPrefab;
+
+    public int FinalTeleportationEnergyCost => finalTeleportationEnergyCost;
+
+    #endregion
+
+    #region UnityInspector
+
+    [SerializeField] private SceneData levelSceneData;
+
+    [SerializeField] private int finalTeleportationEnergyCost = 3;
 
     #endregion
 
@@ -37,7 +55,10 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         base.Awake();
 
         playerManager = FindObjectOfType<PlayerManager>();
+
         sentinel = FindObjectOfType<Sentinel>();
+
+        listEnemies.Add(sentinel.gameObject);
     }
 
     private void Start()
@@ -47,5 +68,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         {
             listCells.Add(cells.ListCells[i]);
         }
+    }
+
+    [ContextMenu("GameOver")]
+    public void GameOver()
+    {
+        StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
     }
 }

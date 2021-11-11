@@ -186,6 +186,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 8450308922088420885}
   cellEmpty: 1
   hoverColor: {r: 1, g: 0, b: 0.039215688, a: 1}
+  visualDetection: {fileID: 0}
   teleportPoint: {fileID: 1233214613052132697}
   objectSpawnPoint: {fileID: 1537597980358643979}
   currentCellObjects: []

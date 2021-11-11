@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 20
-  viewAngle: 50
+  viewAngle: 65
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -91,7 +91,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6983299601548438084}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0080004, y: 10.644, z: 0.31900024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -174,7 +174,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986b7e21606f3f046badca66d07daed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxSentinelDetection: {fileID: 11400000, guid: 546c32db73f846b499dbf172a7e119c7,
+    type: 2}
+  ambientSentinelAbsorption: {fileID: 11400000, guid: 130cd3e601fa3584fad8e4803886e71c,
+    type: 2}
   sentinelView: {fileID: 7943812872817429630}
+  timeInterval: 1.5
+  sentinelCell: {fileID: 0}
 --- !u!1 &7678579375584624713
 GameObject:
   m_ObjectHideFlags: 0

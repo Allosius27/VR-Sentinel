@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Valve.VR;
 
 public class PlayerManager : MonoBehaviour
@@ -8,12 +9,20 @@ public class PlayerManager : MonoBehaviour
     #region Fields
 
     private PlayerCanvasManager playerCanvasManager;
+    private GlobalPlayerCanvasManager globalPlayerCanvasManager;
 
+    private bool canAbsorb = true;
+
+    private bool activeSpecialTeleportation;
+
+    private float specialTeleportTimer;
 
 
     #endregion
 
     #region Properties
+
+    public GlobalPlayerCanvasManager GlobalPlayerCanvasManager => globalPlayerCanvasManager;
 
     public CreationSlot currentCreationSlotSelected { get; set; }
 
@@ -30,6 +39,10 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int currentEnergyPoints;
 
+    [SerializeField] private float timeToActivateSpecialTeleportation;
+
+    [Space]
+
     // a reference to the hand
     public SteamVR_Input_Sources handType, handType02;
 
@@ -42,16 +55,28 @@ public class PlayerManager : MonoBehaviour
     // a reference to the action
     public SteamVR_Action_Boolean TeleportObject;
 
-    public KeyCode absorptionKey, teleportKey, createObjectKey, buildModeActiveKey;
-    
+    // a reference to the action
+    public SteamVR_Action_Boolean SpecialTeleportationLeft;
+
+    // a reference to the action
+    public SteamVR_Action_Boolean SpecialTeleportationRight;
+
+    public KeyCode absorptionKey, teleportKey, createObjectKey, buildModeActiveKey, specialTeleportationKey;
+
 
     #endregion
 
     #region Behaviour
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         playerCanvasManager = FindObjectOfType<PlayerCanvasManager>();
+        globalPlayerCanvasManager = FindObjectOfType<GlobalPlayerCanvasManager>();
 
         playerCanvasManager.SetEnergyPoints(currentEnergyPoints);
 
@@ -61,8 +86,18 @@ public class PlayerManager : MonoBehaviour
         ActionObject.AddOnStateDownListener(ActionTriggerDown, handType02);
         ActionObject.AddOnStateUpListener(ActionTriggerUp, handType02);
 
+        SpecialTeleportationLeft.AddOnStateDownListener(SpecialTeleportationTriggerDown, handType02);
+        SpecialTeleportationLeft.AddOnStateUpListener(SpecialTeleportationTriggerUp, handType02);
+
+        globalPlayerCanvasManager.LoadingSlider.maxValue = timeToActivateSpecialTeleportation;
+        globalPlayerCanvasManager.LoadingSlider.value = 0;
+        globalPlayerCanvasManager.LoadingSlider.gameObject.SetActive(false);
+
         TeleportObject.AddOnStateDownListener(TeleportTriggerDown, handType);
         TeleportObject.AddOnStateUpListener(TeleportTriggerUp, handType);
+
+        SpecialTeleportationRight.AddOnStateDownListener(SpecialTeleportationTriggerDown, handType);
+        SpecialTeleportationRight.AddOnStateUpListener(SpecialTeleportationTriggerUp, handType);
 
         transform.position = currentPlayerCell.ObjectSpawnPoint.position;
 
@@ -79,6 +114,24 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if(GameCore.Instance != null && GameCore.Instance.isPaused)
+        {
+            return;
+        }
+
+        if(activeSpecialTeleportation)
+        {
+            specialTeleportTimer += Time.deltaTime;
+            globalPlayerCanvasManager.LoadingSlider.value = specialTeleportTimer;
+            if(specialTeleportTimer >= timeToActivateSpecialTeleportation)
+            {
+                activeSpecialTeleportation = false;
+                specialTeleportTimer = 0;
+                globalPlayerCanvasManager.LoadingSlider.gameObject.SetActive(false);
+                SpecialTeleport();
+            }
+        }
+
         if(Input.GetKeyDown(absorptionKey))
         {
             Absorption();
@@ -90,6 +143,16 @@ public class PlayerManager : MonoBehaviour
         if(Input.GetKeyDown(createObjectKey))
         {
             Create();
+        }
+
+        if(Input.GetKeyDown(specialTeleportationKey))
+        {
+            //SpecialTeleport();
+            ActiveSpecialTeleportation(true);
+        }
+        if(Input.GetKeyUp(specialTeleportationKey))
+        {
+            ActiveSpecialTeleportation(false);
         }
 
         if(Input.GetKeyDown(buildModeActiveKey) && !constructionModeActive)
@@ -148,6 +211,19 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    public void SpecialTeleportationTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Special Teleportation Trigger is up");
+        ActiveSpecialTeleportation(false);
+    }
+
+    public void SpecialTeleportationTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Special Teleportation Trigger is down");
+        ActiveSpecialTeleportation(true);
+        //SpecialTeleport();
+    }
+
     public void BuildActivation(bool value)
     {
         constructionModeActive = value;
@@ -156,15 +232,29 @@ public class PlayerManager : MonoBehaviour
     [ContextMenu("Absorption")]
     public void Absorption()
     {
-        Debug.Log("Absorption launched");
-        if(cellObjectSelected != null && cellObjectSelected.CurrentCellObjects.Count >= 1)
+        if (canAbsorb)
         {
-            ChangeEnergyPoints(cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count-1].GetComponent<AbsorbableObject>().EnergyPoints);
-            
-            DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
-            cellObjectSelected = null;
+            Debug.Log("Absorption launched");
+            if (cellObjectSelected != null && cellObjectSelected.CurrentCellObjects.Count >= 1)
+            {
+                Sentinel _sentinel = cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<Sentinel>();
+                if (_sentinel != null)
+                {
+                    Debug.Log("Sentinel Absorbed");
+                    GameCore.Instance.ListEnemies.Remove(_sentinel.gameObject);
+                    canAbsorb = false;
+                }
 
-            GameCore.Instance.Sentinel.SentinelRotate();
+                ChangeEnergyPoints(cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().EnergyPoints, false);
+
+                DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
+                cellObjectSelected = null;
+
+                if (GameCore.Instance.Sentinel != null)
+                {
+                    GameCore.Instance.Sentinel.SentinelRotate();
+                }
+            }
         }
     }
 
@@ -206,6 +296,35 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void ActiveSpecialTeleportation(bool value)
+    {
+        activeSpecialTeleportation = value;
+
+        if(value)
+        {
+            specialTeleportTimer = 0;
+            globalPlayerCanvasManager.LoadingSlider.gameObject.SetActive(true);
+        }
+        else
+        {
+            globalPlayerCanvasManager.LoadingSlider.gameObject.SetActive(false);
+        }
+    }
+
+    [ContextMenu("Special Teleport")]
+    public void SpecialTeleport()
+    {
+        if(GameCore.Instance.ListEnemies.Count < 1 && currentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
+        {
+            Debug.Log("Final Teleportation");
+
+            ChangeEnergyPoints(-GameCore.Instance.FinalTeleportationEnergyCost, false);
+
+            Debug.Log("Victory !!!");
+            playerCanvasManager.Quit();
+        }
+    }
+
     [ContextMenu("Create")]
     public void Create()
     {
@@ -216,9 +335,12 @@ public class PlayerManager : MonoBehaviour
             {
                 InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
 
-                ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired);
+                ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired, false);
 
-                GameCore.Instance.Sentinel.SentinelRotate();
+                if (GameCore.Instance.Sentinel != null)
+                {
+                    GameCore.Instance.Sentinel.SentinelRotate();
+                }
             }
             else if(cellObjectSelected.CellEmpty == false && cellObjectSelected.Stackable)
             {
@@ -226,9 +348,12 @@ public class PlayerManager : MonoBehaviour
                 {
                     InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
 
-                    ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired);
+                    ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired, false);
 
-                    GameCore.Instance.Sentinel.SentinelRotate();
+                    if (GameCore.Instance.Sentinel != null)
+                    {
+                        GameCore.Instance.Sentinel.SentinelRotate();
+                    }
                 }
             }
         }
@@ -327,11 +452,22 @@ public class PlayerManager : MonoBehaviour
         cell.SetCurrentCellObject(_object);
     }
 
-    public void ChangeEnergyPoints(int amount)
+    public void ChangeEnergyPoints(int amount, bool canDie)
     {
-        currentEnergyPoints += amount;
+        if (currentEnergyPoints >= 0)
+        {
+            currentEnergyPoints += amount;
 
-        UpdateEnergyPoints();
+            if (currentEnergyPoints <= 0 && canDie)
+            {
+                currentEnergyPoints = 0;
+
+                Debug.Log("Game Over");
+                GameCore.Instance.GameOver();
+            }
+
+            UpdateEnergyPoints();
+        }
     }
 
     public void UpdateEnergyPoints()
