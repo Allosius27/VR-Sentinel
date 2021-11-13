@@ -250,7 +250,7 @@ public class PlayerManager : MonoBehaviour
                 AllosiusDev.AudioManager.Play(sfxAbsorbObject.sound);
 
                 Sentinel _sentinel = cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<Sentinel>();
-                if (_sentinel != null)
+                if (_sentinel != null && _sentinel.GetComponent<Entity>().type == Entity.Type.Sentinel)
                 {
                     Debug.Log("Sentinel Absorbed");
                     GameCore.Instance.ListEnemies.Remove(_sentinel.gameObject);
@@ -262,9 +262,13 @@ public class PlayerManager : MonoBehaviour
                 DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
                 cellObjectSelected = null;
 
-                if (GameCore.Instance.Sentinel != null)
+                /*if (GameCore.Instance.Sentinel != null)
                 {
                     GameCore.Instance.Sentinel.SentinelRotate();
+                }*/
+                for (int i = 0; i < GameCore.Instance.ListEnemies.Count; i++)
+                {
+                    GameCore.Instance.ListEnemies[i].GetComponent<Sentinel>().SentinelRotate();
                 }
             }
         }
@@ -377,9 +381,13 @@ public class PlayerManager : MonoBehaviour
 
                 ChangeEnergyPoints(-_energyCost, false);
 
-                if (GameCore.Instance.Sentinel != null)
+                /*if (GameCore.Instance.Sentinel != null)
                 {
                     GameCore.Instance.Sentinel.SentinelRotate();
+                }*/
+                for (int i = 0; i < GameCore.Instance.ListEnemies.Count; i++)
+                {
+                    GameCore.Instance.ListEnemies[i].GetComponent<Sentinel>().SentinelRotate();
                 }
             }
             else if(_selectedCell.CellEmpty == false && _selectedCell.Stackable)
@@ -392,9 +400,13 @@ public class PlayerManager : MonoBehaviour
 
                     ChangeEnergyPoints(-_energyCost, false);
 
-                    if (GameCore.Instance.Sentinel != null)
+                    /*if (GameCore.Instance.Sentinel != null)
                     {
                         GameCore.Instance.Sentinel.SentinelRotate();
+                    }*/
+                    for (int i = 0; i < GameCore.Instance.ListEnemies.Count; i++)
+                    {
+                        GameCore.Instance.ListEnemies[i].GetComponent<Sentinel>().SentinelRotate();
                     }
                 }
             }
