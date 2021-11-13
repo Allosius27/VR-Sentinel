@@ -179,7 +179,7 @@ MonoBehaviour:
   ambientSentinelAbsorption: {fileID: 11400000, guid: 130cd3e601fa3584fad8e4803886e71c,
     type: 2}
   sentinelView: {fileID: 7943812872817429630}
-  timeInterval: 1.5
+  timeInterval: 1
   sentinelCell: {fileID: 0}
 --- !u!1 &7678579375584624713
 GameObject:
