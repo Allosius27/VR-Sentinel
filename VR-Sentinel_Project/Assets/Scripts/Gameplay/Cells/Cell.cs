@@ -49,6 +49,9 @@ public class Cell : MonoBehaviour
     [SerializeField] private Transform objectSpawnPoint;
     [SerializeField] private List<GameObject> currentCellObjects = new List<GameObject>();
 
+    //[SerializeField] private Transform groundCheck;
+    //[SerializeField] private float groundCheckRadius;
+
     #endregion
 
     #region Behaviour
@@ -62,6 +65,37 @@ public class Cell : MonoBehaviour
     {
         teleportPoint.gameObject.SetActive(true);
         SetTeleportPointLocked(true);
+
+        /*Collider[] hitColliders = Physics.OverlapSphere(transform.position, groundCheckRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            Debug.Log(hitCollider.name);
+
+            if (hitCollider.gameObject.GetComponent<Cell>() != null && hitCollider.gameObject.transform.position.y > this.transform.position.y)
+            {
+                Debug.Log(gameObject.name + "not empty");
+                SetCellEmpty(false);
+            }
+
+            if (hitCollider.gameObject.CompareTag("CollisionCell") && hitCollider.gameObject.transform.position.y >= this.transform.position.y)
+            {
+                Debug.Log(gameObject.name + "not empty");
+                SetCellEmpty(false);
+            }
+        }*/
+
+        /*if (collision.gameObject.GetComponent<Cell>() != null && collision.gameObject.transform.position.y >= this.transform.position.y)
+        {
+            Debug.Log(gameObject.name + "not empty");
+            SetCellEmpty(false);
+        }
+
+        if (collision.gameObject.CompareTag("CollisionCell") && collision.gameObject.transform.position.y >= this.transform.position.y)
+        {
+            Debug.Log(gameObject.name + "not empty");
+            SetCellEmpty(false);
+        }*/
+
     }
 
     public void SetCurrentCellObject(GameObject _object)
@@ -102,4 +136,10 @@ public class Cell : MonoBehaviour
     }
 
     #endregion
+
+    /*private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }*/
 }

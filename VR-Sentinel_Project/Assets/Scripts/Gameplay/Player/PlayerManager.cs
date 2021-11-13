@@ -41,6 +41,8 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private float timeToActivateSpecialTeleportation;
 
+    [SerializeField] private float minCellPos = 1.35f;
+
     [Space]
 
     // a reference to the hand
@@ -138,11 +140,11 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetKeyDown(teleportKey))
         {
-            Teleport();
+            Teleport(cellObjectSelected);
         }
         if(Input.GetKeyDown(createObjectKey))
         {
-            Create();
+            Create(cellObjectSelected, currentCreationSlotSelected.PrefabObjectCreate, currentCreationSlotSelected.energyPointsRequired);
         }
 
         if(Input.GetKeyDown(specialTeleportationKey))
@@ -190,7 +192,7 @@ public class PlayerManager : MonoBehaviour
 
         if (constructionModeActive)
         {
-            Create();
+            Create(cellObjectSelected, currentCreationSlotSelected.PrefabObjectCreate, currentCreationSlotSelected.energyPointsRequired);
         }
         else
         {
@@ -207,7 +209,7 @@ public class PlayerManager : MonoBehaviour
     public void TeleportTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
         Debug.Log("Teleport Trigger is down");
-        Teleport();
+        Teleport(cellObjectSelected);
 
     }
 
@@ -259,14 +261,21 @@ public class PlayerManager : MonoBehaviour
     }
 
     [ContextMenu("Teleport")]
-    public void Teleport()
+    public void Teleport(Cell _cellDestination)
     {
         Debug.Log("Teleportation launched");
-        if(cellObjectSelected != null && cellObjectSelected.CurrentCellObjects.Count >= 1 && cellObjectSelected.CanTeleport)
+        if(_cellDestination != null && _cellDestination.CurrentCellObjects.Count >= 1 && _cellDestination.CanTeleport)
         {
-            InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
+            if (GameCore.Instance.Sentinel.PlayerInSightRange)
+            {
+                InstantiateObject(GameCore.Instance.TreePrefab, currentPlayerCell);
+            }
+            else
+            {
+                InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
+            }
 
-            transform.position = cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].transform.position;
+            transform.position = _cellDestination.CurrentCellObjects[_cellDestination.CurrentCellObjects.Count - 1].transform.position;
             
             currentPlayerCell.gameObject.layer = 10;
             for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
@@ -278,7 +287,7 @@ public class PlayerManager : MonoBehaviour
             }
             currentPlayerCell.VisualDetection.SetActive(false);
 
-            currentPlayerCell = cellObjectSelected;
+            currentPlayerCell = _cellDestination;
 
             currentPlayerCell.gameObject.layer = 0;
             for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
@@ -290,8 +299,8 @@ public class PlayerManager : MonoBehaviour
             }
             currentPlayerCell.VisualDetection.SetActive(true);
 
-            DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
-            cellObjectSelected = null;
+            DestroyCellObject(_cellDestination, _cellDestination.CurrentCellObjects, _cellDestination.CurrentCellObjects.Count - 1);
+            _cellDestination = null;
 
         }
     }
@@ -323,32 +332,49 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Victory !!!");
             playerCanvasManager.Quit();
         }
+        else
+        {
+            Debug.Log("Aleat Teleportation");
+            List<Cell> randomCells = new List<Cell>();
+            for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
+            {
+                if(GameCore.Instance.ListCells[i].transform.position.y <= currentPlayerCell.transform.position.y && GameCore.Instance.ListCells[i].CellEmpty 
+                    && GameCore.Instance.ListCells[i].transform.position.y >= minCellPos)
+                {
+                    randomCells.Add(GameCore.Instance.ListCells[i]);
+                }
+            }
+
+            int rnd = Random.Range(0, randomCells.Count);
+            Create(randomCells[rnd], GameCore.Instance.SynthoidPrefab, GameCore.Instance.FinalTeleportationEnergyCost);
+            Teleport(randomCells[rnd]);
+        }
     }
 
     [ContextMenu("Create")]
-    public void Create()
+    public void Create(Cell _selectedCell, GameObject _objectToCreate, int _energyCost)
     {
         Debug.Log("Create Object");
-        if(cellObjectSelected != null && currentCreationSlotSelected != null && currentCreationSlotSelected.energyPointsRequired <= currentEnergyPoints)
+        if(_selectedCell != null && currentCreationSlotSelected != null && _energyCost <= currentEnergyPoints)
         {
-            if(cellObjectSelected.CellEmpty)
+            if(_selectedCell.CellEmpty)
             {
-                InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
+                InstantiateObject(_objectToCreate, _selectedCell);
 
-                ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired, false);
+                ChangeEnergyPoints(-_energyCost, false);
 
                 if (GameCore.Instance.Sentinel != null)
                 {
                     GameCore.Instance.Sentinel.SentinelRotate();
                 }
             }
-            else if(cellObjectSelected.CellEmpty == false && cellObjectSelected.Stackable)
+            else if(_selectedCell.CellEmpty == false && _selectedCell.Stackable)
             {
-                if (currentCreationSlotSelected.PrefabObjectCreate.GetComponent<AbsorbableObject>().PlaceableOnStack)
+                if (_objectToCreate.GetComponent<AbsorbableObject>().PlaceableOnStack)
                 {
-                    InstantiateObject(currentCreationSlotSelected.PrefabObjectCreate, cellObjectSelected);
+                    InstantiateObject(_objectToCreate, _selectedCell);
 
-                    ChangeEnergyPoints(-currentCreationSlotSelected.energyPointsRequired, false);
+                    ChangeEnergyPoints(-_energyCost, false);
 
                     if (GameCore.Instance.Sentinel != null)
                     {

@@ -16,6 +16,12 @@ public class Sentinel : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public bool PlayerInSightRange => playerInSightRange;
+
+    #endregion
+
     #region UnityInspector
 
     [SerializeField] private AllosiusDev.AudioData sfxSentinelDetection;
@@ -49,7 +55,12 @@ public class Sentinel : MonoBehaviour
         playerInSightRange = sentinelView.checkTargetInFieldOfView;
         if(playerInSightRange)
         {
+            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
             AddCountTime(Time.deltaTime);
+        }
+        else
+        {
+            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
         }
 
         cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
@@ -89,7 +100,7 @@ public class Sentinel : MonoBehaviour
 
                 AllosiusDev.AudioManager.Play(ambientSentinelAbsorption.sound);
             }
-            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
+            
         }
         else
         {
@@ -97,7 +108,7 @@ public class Sentinel : MonoBehaviour
             {
                 AllosiusDev.AudioManager.Stop(ambientSentinelAbsorption.sound);
             }
-            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
+            
         }
     }
 

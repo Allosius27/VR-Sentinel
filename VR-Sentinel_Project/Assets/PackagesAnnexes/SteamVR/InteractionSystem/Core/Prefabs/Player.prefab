@@ -293,7 +293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPlayerCell: {fileID: 0}
   currentEnergyPoints: 8
-  timeToActivateSpecialTeleportation: 3
+  timeToActivateSpecialTeleportation: 1.5
+  minCellPos: 1.35
   handType: 2
   handType02: 1
   BuildActive:

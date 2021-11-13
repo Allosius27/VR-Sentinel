@@ -9,6 +9,7 @@ TagManager:
   - DepthSuccessTextPointSpawn
   - projectile
   - FxTemporaire
+  - CollisionCell
   layers:
   - Default
   - TransparentFX

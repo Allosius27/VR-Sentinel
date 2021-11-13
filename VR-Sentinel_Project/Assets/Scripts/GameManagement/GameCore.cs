@@ -31,6 +31,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     public Sentinel Sentinel => sentinel;
 
     public GameObject SynthoidPrefab => synthoidPrefab;
+    public GameObject TreePrefab => treePrefab;
 
     public int FinalTeleportationEnergyCost => finalTeleportationEnergyCost;
 
@@ -47,6 +48,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     #region Behaviour
 
     [SerializeField] private GameObject synthoidPrefab;
+    [SerializeField] private GameObject treePrefab;
 
     #endregion
 
