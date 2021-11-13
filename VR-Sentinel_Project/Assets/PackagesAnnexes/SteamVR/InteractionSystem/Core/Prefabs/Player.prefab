@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 496744}
   - component: {fileID: 2083460}
   - component: {fileID: 11476190}
+  - component: {fileID: 1655142815}
   m_Layer: 9
   m_Name: FallbackObjects
   m_TagString: MainCamera
@@ -494,6 +495,25 @@ MonoBehaviour:
   speed: 4
   shiftSpeed: 16
   showInstructions: 1
+--- !u!114 &1655142815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420acabc9eb8d3a44ab13568469e0039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wobble: {fileID: 2100000, guid: d71fa1ab5a008b04098eb85872e264af, type: 2}
+  underwaterColor: {r: 0.49803922, g: 0.7529412, b: 0.85882354, a: 1}
+  Blend: 0
+  multiply: {fileID: 4800000, guid: 4616dba0fcbb2734895383d1cbbb9e5f, type: 3}
+  overlay: {fileID: 4800000, guid: 248bbca4a4b462c48ab8721daca64412, type: 3}
+  screen: {fileID: 4800000, guid: eee2cf16b7a970b4a9b8ed9d63ede4b8, type: 3}
+  effectActive: 0
 --- !u!1 &114188
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +624,7 @@ GameObject:
   - component: {fileID: 2014920}
   - component: {fileID: 11450526}
   - component: {fileID: 12440092}
+  - component: {fileID: 1258620276}
   m_Layer: 9
   m_Name: VRCamera
   m_TagString: MainCamera
@@ -688,6 +709,25 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125964}
   m_Enabled: 1
+--- !u!114 &1258620276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420acabc9eb8d3a44ab13568469e0039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wobble: {fileID: 2100000, guid: d71fa1ab5a008b04098eb85872e264af, type: 2}
+  underwaterColor: {r: 0.49803922, g: 0.7529412, b: 0.85882354, a: 1}
+  Blend: 0
+  multiply: {fileID: 4800000, guid: 4616dba0fcbb2734895383d1cbbb9e5f, type: 3}
+  overlay: {fileID: 4800000, guid: 248bbca4a4b462c48ab8721daca64412, type: 3}
+  screen: {fileID: 4800000, guid: eee2cf16b7a970b4a9b8ed9d63ede4b8, type: 3}
+  effectActive: 0
 --- !u!1 &129006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,12 +2871,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0319b9f97b8f6dc43a2121a71b19b41b, type: 3}
---- !u!4 &722602260221520202 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 902911483932993030, guid: 0319b9f97b8f6dc43a2121a71b19b41b,
-    type: 3}
-  m_PrefabInstance: {fileID: 468651269282041676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5797656480866112448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6266074996843715724, guid: 0319b9f97b8f6dc43a2121a71b19b41b,
@@ -2849,6 +2883,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daad9910d081edd49b0e7fadb80fc07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &722602260221520202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 902911483932993030, guid: 0319b9f97b8f6dc43a2121a71b19b41b,
+    type: 3}
+  m_PrefabInstance: {fileID: 468651269282041676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1155858780950320390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2933,15 +2973,15 @@ PrefabInstance:
       objectReference: {fileID: 5797656480866112448}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82890af9c6c7e0946b31fff7b99fc6f3, type: 3}
---- !u!20 &3959069867448020917 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2808872321043823283, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1155858780950320390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3959069867448020919 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2808872321043823281, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1155858780950320390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &3959069867448020917 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2808872321043823283, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
     type: 3}
   m_PrefabInstance: {fileID: 1155858780950320390}
   m_PrefabAsset: {fileID: 0}
@@ -3139,15 +3179,15 @@ PrefabInstance:
       objectReference: {fileID: 5797656480866112448}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82890af9c6c7e0946b31fff7b99fc6f3, type: 3}
---- !u!4 &4320651511723066503 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2808872321043823281, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2093355609850936886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &4320651511723066501 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2808872321043823283, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2093355609850936886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4320651511723066503 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2808872321043823281, guid: 82890af9c6c7e0946b31fff7b99fc6f3,
     type: 3}
   m_PrefabInstance: {fileID: 2093355609850936886}
   m_PrefabAsset: {fileID: 0}
