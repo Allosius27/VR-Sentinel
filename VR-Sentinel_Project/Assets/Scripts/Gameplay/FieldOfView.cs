@@ -21,20 +21,32 @@ public class FieldOfView : MonoBehaviour
 	public int edgeResolveIterations;
 	public float edgeDstThreshold;
 
-	public MeshFilter viewMeshFilter;
+	//[SerializeField] private Transform viewVisualisation;
+
+	public MeshFilter[] viewMeshFilter;
 	Mesh viewMesh;
 
 	public virtual void Start()
 	{
+
 		viewMesh = new Mesh();
 		viewMesh.name = "View Mesh";
-		viewMeshFilter.mesh = viewMesh;
+        for (int i = 0; i < viewMeshFilter.Length; i++)
+        {
+			viewMeshFilter[i].mesh = viewMesh;
+		}
+		
 
 		StartCoroutine("FindTargetsWithDelay", .2f);
 	}
 
+    private void Update()
+    {
+		//viewVisualisation.LookAt(new Vector3(GameCore.Instance.PlayerManager.transform.position.x, 0, 0));
+	}
 
-	public virtual IEnumerator FindTargetsWithDelay(float delay)
+
+    public virtual IEnumerator FindTargetsWithDelay(float delay)
 	{
 		while (true)
 		{

@@ -8,7 +8,7 @@ public class SentinelView : FieldOfView
 
     public LayerMask cellPlayerTargetMask;
 
-    public bool checkCellPlayerInFieldOfView;
+	public bool checkCellPlayerInFieldOfView;
 
     #endregion
 
