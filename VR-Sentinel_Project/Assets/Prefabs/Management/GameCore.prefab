@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPersistant: 0
+  mainMusic: {fileID: 11400000, guid: e3ebee1a9352d1b49a518047de98fc3a, type: 2}
   levelSceneData: {fileID: 11400000, guid: d1cc3eb02e11f5e408f4cf77a919d65e, type: 2}
+  finalTeleportationEnergyCost: 3
   synthoidPrefab: {fileID: 8884328232011474380, guid: 4685fb63d117e1e43b0133f99497e6ba,
+    type: 3}
+  treePrefab: {fileID: 4422302277068820626, guid: f1f8d6689c70a304396976303cabb0c6,
     type: 3}

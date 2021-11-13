@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6151fd00d781a7a46a8d4399e32151bc, type: 3}
-  m_Name: SfxSentinelDetection AudioData
+  m_Name: MainMusic AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a628d841e5502ab4d854d7aecbd1db6b, type: 3}
     parameters:
-      typeSound: 0
+      typeSound: 1
       volume: 0.1
       volume3d: 0
       pitch: 1
-      loop: 0
+      loop: 1
       spacialBlend: 0

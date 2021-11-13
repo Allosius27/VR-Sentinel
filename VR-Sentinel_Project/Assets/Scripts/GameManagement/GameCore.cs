@@ -39,6 +39,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData mainMusic;
+
     [SerializeField] private SceneData levelSceneData;
 
     [SerializeField] private int finalTeleportationEnergyCost = 3;
@@ -65,6 +67,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private void Start()
     {
+        AllosiusDev.AudioManager.Play(mainMusic.sound);
+
         Cells cells = FindObjectOfType<Cells>();
         for (int i = 0; i < cells.ListCells.Count; i++)
         {

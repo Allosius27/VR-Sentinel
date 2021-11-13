@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AmbientSentinelAbsorption AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 6066780cf132e8a418b845014de680d7, type: 3}
     parameters:
       typeSound: 2
       volume: 0.18

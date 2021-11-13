@@ -35,6 +35,14 @@ public class PlayerManager : MonoBehaviour
 
     #region UnityInspector
 
+    [Header("Sounds :")]
+
+    [SerializeField] private AllosiusDev.AudioData sfxTeleport;
+    [SerializeField] private AllosiusDev.AudioData sfxCreateObject;
+    [SerializeField] private AllosiusDev.AudioData sfxAbsorbObject;
+
+    [Space]
+
     [SerializeField] private Cell currentPlayerCell;
 
     [SerializeField] private int currentEnergyPoints;
@@ -239,6 +247,8 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Absorption launched");
             if (cellObjectSelected != null && cellObjectSelected.CurrentCellObjects.Count >= 1)
             {
+                AllosiusDev.AudioManager.Play(sfxAbsorbObject.sound);
+
                 Sentinel _sentinel = cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<Sentinel>();
                 if (_sentinel != null)
                 {
@@ -266,6 +276,8 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Teleportation launched");
         if(_cellDestination != null && _cellDestination.CurrentCellObjects.Count >= 1 && _cellDestination.CanTeleport)
         {
+            AllosiusDev.AudioManager.Play(sfxTeleport.sound);
+
             if (GameCore.Instance.Sentinel.PlayerInSightRange)
             {
                 InstantiateObject(GameCore.Instance.TreePrefab, currentPlayerCell);
@@ -359,6 +371,8 @@ public class PlayerManager : MonoBehaviour
         {
             if(_selectedCell.CellEmpty)
             {
+                AllosiusDev.AudioManager.Play(sfxCreateObject.sound);
+
                 InstantiateObject(_objectToCreate, _selectedCell);
 
                 ChangeEnergyPoints(-_energyCost, false);
@@ -372,6 +386,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (_objectToCreate.GetComponent<AbsorbableObject>().PlaceableOnStack)
                 {
+                    AllosiusDev.AudioManager.Play(sfxCreateObject.sound);
+
                     InstantiateObject(_objectToCreate, _selectedCell);
 
                     ChangeEnergyPoints(-_energyCost, false);

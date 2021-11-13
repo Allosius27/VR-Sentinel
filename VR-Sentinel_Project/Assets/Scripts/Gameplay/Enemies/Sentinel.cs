@@ -14,6 +14,8 @@ public class Sentinel : MonoBehaviour
 
     private float countTimer;
 
+    private bool sentinelAlarmActived;
+
     #endregion
 
     #region Properties
@@ -57,10 +59,25 @@ public class Sentinel : MonoBehaviour
         {
             GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
             AddCountTime(Time.deltaTime);
+
+            if(!sentinelAlarmActived)
+            {
+                AllosiusDev.AudioManager.Play(sfxSentinelDetection.sound);
+
+                AllosiusDev.AudioManager.Play(ambientSentinelAbsorption.sound);
+
+                sentinelAlarmActived = true;
+            }
         }
         else
         {
             GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
+
+            if (sentinelAlarmActived)
+            {
+                AllosiusDev.AudioManager.Stop(ambientSentinelAbsorption.sound);
+                sentinelAlarmActived = false;
+            }
         }
 
         cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
@@ -83,31 +100,17 @@ public class Sentinel : MonoBehaviour
     {
         transform.RotateAround(transform.position, Vector3.up, 30.0f);
 
-        StartCoroutine(CheckCellPlayerInSightRange());
-        StartCoroutine(CheckPlayerInSightRange());
+        //StartCoroutine(CheckCellPlayerInSightRange());
+        //StartCoroutine(CheckPlayerInSightRange());
     }
 
-    [ContextMenu("CheckPlayerInSightRange")]
+    /*[ContextMenu("CheckPlayerInSightRange")]
     public IEnumerator CheckPlayerInSightRange()
     {
         yield return new WaitForSeconds(0.5f);
 
         if (playerInSightRange)
         {
-            if(GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled == false)
-            {
-                AllosiusDev.AudioManager.Play(sfxSentinelDetection.sound);
-
-                AllosiusDev.AudioManager.Play(ambientSentinelAbsorption.sound);
-            }
-            
-        }
-        else
-        {
-            if (GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled == true)
-            {
-                AllosiusDev.AudioManager.Stop(ambientSentinelAbsorption.sound);
-            }
             
         }
     }
@@ -116,5 +119,5 @@ public class Sentinel : MonoBehaviour
     public IEnumerator CheckCellPlayerInSightRange()
     {
         yield return new WaitForSeconds(0.5f);
-    }
+    }*/
 }
