@@ -25,6 +25,8 @@ public class AbsorbableObject : MonoBehaviour
 
     public GameObject PreviewObject => previewObject;
 
+    public Cell cellAssociated { get; set; }
+
     #endregion
 
     #region UnityInspector

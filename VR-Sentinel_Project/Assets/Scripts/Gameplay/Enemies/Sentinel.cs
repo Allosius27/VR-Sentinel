@@ -63,15 +63,17 @@ public class Sentinel : MonoBehaviour
     public virtual void Update()
     {
         playerInSightRange = sentinelView.checkTargetInFieldOfView;
+        cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
         if(playerInSightRange || CellPlayerInSightRange)
         {
-            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
+            //GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
             AddCountTime(Time.deltaTime);
 
             if(!sentinelAlarmActived)
             {
                 AllosiusDev.AudioManager.Play(sfxSentinelDetection.sound);
 
+                AllosiusDev.AudioManager.Stop(ambientSentinelAbsorption.sound);
                 AllosiusDev.AudioManager.Play(ambientSentinelAbsorption.sound);
 
                 sentinelAlarmActived = true;
@@ -79,7 +81,7 @@ public class Sentinel : MonoBehaviour
         }
         else
         {
-            GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
+            //GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
 
             if (sentinelAlarmActived)
             {
@@ -88,7 +90,6 @@ public class Sentinel : MonoBehaviour
             }
         }
 
-        cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
     }
 
     public void SetPlayerInSightRange(bool value)

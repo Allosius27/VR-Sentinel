@@ -115,7 +115,7 @@ MonoBehaviour:
     type: 2}
   ambientSentinelAbsorption: {fileID: 11400000, guid: 130cd3e601fa3584fad8e4803886e71c,
     type: 2}
-  sentinelView: {fileID: 3196484017539170454}
+  sentinelView: {fileID: 1128187758}
   timeInterval: 1
   rotationAngle: -30
   sentinelCell: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4629934636539390923}
-  - component: {fileID: 3196484017539170454}
+  - component: {fileID: 1128187758}
   m_Layer: 0
   m_Name: ViewSentinel
   m_TagString: Untagged
@@ -264,7 +264,7 @@ Transform:
   m_Father: {fileID: 2489240458001933997}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 8.076, y: 0, z: 0}
---- !u!114 &3196484017539170454
+--- !u!114 &1128187758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4629934636539390926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917c938c0e48fae4aa35b287f8995477, type: 3}
+  m_Script: {fileID: 11500000, guid: 50e8c21793fe82c4aa66f79a17a27e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 20
@@ -296,6 +296,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   checkCellPlayerInFieldOfView: 0
+  absorbableObjectsTargetMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  checkAbsorbableObjectsInFieldOfView: 0
 --- !u!1 &5026084768534873029
 GameObject:
   m_ObjectHideFlags: 0

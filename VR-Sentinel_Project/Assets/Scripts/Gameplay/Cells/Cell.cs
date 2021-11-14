@@ -66,6 +66,14 @@ public class Cell : MonoBehaviour
         teleportPoint.gameObject.SetActive(true);
         SetTeleportPointLocked(true);
 
+        for (int i = 0; i < currentCellObjects.Count; i++)
+        {
+            if(currentCellObjects[i].GetComponent<AbsorbableObject>() != null)
+            {
+                currentCellObjects[i].GetComponent<AbsorbableObject>().cellAssociated = this;
+            }
+        }
+
         /*Collider[] hitColliders = Physics.OverlapSphere(transform.position, groundCheckRadius);
         foreach (var hitCollider in hitColliders)
         {

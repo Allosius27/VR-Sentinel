@@ -256,10 +256,14 @@ public class PlayerManager : MonoBehaviour
                     GameCore.Instance.ListEnemies.Remove(_sentinel.gameObject);
                     canAbsorb = false;
                 }
+                else if(_sentinel != null && _sentinel.GetComponent<Entity>().type == Entity.Type.Sentrie)
+                {
+                    GameCore.Instance.ListEnemies.Remove(_sentinel.gameObject);
+                }
 
                 ChangeEnergyPoints(cellObjectSelected.CurrentCellObjects[cellObjectSelected.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().EnergyPoints, false);
 
-                DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
+                GameCore.Instance.DestroyCellObject(cellObjectSelected, cellObjectSelected.CurrentCellObjects, cellObjectSelected.CurrentCellObjects.Count - 1);
                 cellObjectSelected = null;
 
                 /*if (GameCore.Instance.Sentinel != null)
@@ -315,7 +319,7 @@ public class PlayerManager : MonoBehaviour
             }
             currentPlayerCell.VisualDetection.SetActive(true);
 
-            DestroyCellObject(_cellDestination, _cellDestination.CurrentCellObjects, _cellDestination.CurrentCellObjects.Count - 1);
+            GameCore.Instance.DestroyCellObject(_cellDestination, _cellDestination.CurrentCellObjects, _cellDestination.CurrentCellObjects.Count - 1);
             _cellDestination = null;
 
         }
@@ -465,22 +469,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void DestroyCellObject(Cell cell, List<GameObject> listObjectsCell, int indexObj)
-    {
-        if (listObjectsCell.Count >= 2)
-        {
-            cell.SetStackableState(listObjectsCell[indexObj - 1].GetComponent<AbsorbableObject>().StackableObject);
-            cell.SetCanTeleport(listObjectsCell[indexObj - 1].GetComponent<AbsorbableObject>().CanTeleportObject);
-        }
-        Destroy(listObjectsCell[indexObj]);
-        listObjectsCell.Remove(listObjectsCell[indexObj]);
-        if (listObjectsCell.Count < 1)
-        {
-            cell.SetCellEmpty(true);
-            cell.SetStackableState(false);
-            cell.SetCanTeleport(false);
-        }
-    }
+    
 
     private void InstantiateObject(GameObject objToInstantiate, Cell cell)
     {
@@ -500,6 +489,7 @@ public class PlayerManager : MonoBehaviour
         _object.transform.rotation = Quaternion.identity;
 
         AbsorbableObject absorbableObject = _object.GetComponent<AbsorbableObject>();
+        absorbableObject.cellAssociated = cell;
         cell.SetStackableState(absorbableObject.StackableObject);
         cell.SetCanTeleport(absorbableObject.CanTeleportObject);
 

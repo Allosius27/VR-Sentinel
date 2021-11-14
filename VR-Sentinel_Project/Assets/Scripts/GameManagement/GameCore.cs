@@ -83,6 +83,45 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
     }
 
+    private void Update()
+    {
+        bool enemyActive = false;
+        for (int i = 0; i < ListEnemies.Count; i++)
+        {
+            if (ListEnemies[i] != null && ListEnemies[i].GetComponent<Sentinel>().PlayerInSightRange
+                || ListEnemies[i].GetComponent<Sentinel>().CellPlayerInSightRange)
+            {
+                enemyActive = true;
+            }
+        }
+
+        if(enemyActive)
+        {
+            PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
+        }
+        else
+        {
+            PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
+        }
+    }
+
+    public void DestroyCellObject(Cell cell, List<GameObject> listObjectsCell, int indexObj)
+    {
+        if (listObjectsCell.Count >= 2)
+        {
+            cell.SetStackableState(listObjectsCell[indexObj - 1].GetComponent<AbsorbableObject>().StackableObject);
+            cell.SetCanTeleport(listObjectsCell[indexObj - 1].GetComponent<AbsorbableObject>().CanTeleportObject);
+        }
+        Destroy(listObjectsCell[indexObj]);
+        listObjectsCell.Remove(listObjectsCell[indexObj]);
+        if (listObjectsCell.Count < 1)
+        {
+            cell.SetCellEmpty(true);
+            cell.SetStackableState(false);
+            cell.SetCanTeleport(false);
+        }
+    }
+
     [ContextMenu("GameOver")]
     public void GameOver()
     {

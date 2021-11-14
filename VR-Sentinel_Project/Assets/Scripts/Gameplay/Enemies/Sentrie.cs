@@ -13,6 +13,8 @@ public class Sentrie : Sentinel
     public override void Update()
     {
         SetPlayerInSightRange(SentinelView.checkTargetInFieldOfView);
+        SetCellPlayerInSightRange(SentinelView.checkCellPlayerInFieldOfView);
+
         if (PlayerInSightRange ||CellPlayerInSightRange)
         {
             //GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
@@ -22,7 +24,8 @@ public class Sentrie : Sentinel
             {
                 AllosiusDev.AudioManager.Play(SfxSentinelDetection.sound);
 
-                //AllosiusDev.AudioManager.Play(ambientSentinelAbsorption.sound);
+                AllosiusDev.AudioManager.Stop(AmbientSentinelAbsorption.sound);
+                AllosiusDev.AudioManager.Play(AmbientSentinelAbsorption.sound);
 
                 SetSentinelAlarmActived(true);
             }
@@ -38,6 +41,5 @@ public class Sentrie : Sentinel
             }
         }
 
-        SetCellPlayerInSightRange(SentinelView.checkCellPlayerInFieldOfView);
     }
 }
