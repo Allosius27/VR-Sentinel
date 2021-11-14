@@ -60,9 +60,16 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         playerManager = FindObjectOfType<PlayerManager>();
 
-        sentinel = FindObjectOfType<Sentinel>();
-
-        listEnemies.Add(sentinel.gameObject);
+        var sentinels = FindObjectsOfType<Sentinel>();
+        for (int i = 0; i < sentinels.Length; i++)
+        {
+            if(sentinels[i].GetComponent<Entity>().type == Entity.Type.Sentinel)
+            {
+                sentinel = sentinels[i];
+            }
+            listEnemies.Add(sentinels[i].gameObject);
+        }
+        
     }
 
     private void Start()

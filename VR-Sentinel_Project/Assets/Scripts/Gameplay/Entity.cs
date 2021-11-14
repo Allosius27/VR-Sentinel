@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
         Default,
         AbsorbableObject,
         Sentinel,
+        Sentrie,
     }
 
     public Type type;

@@ -20,7 +20,18 @@ public class Sentinel : MonoBehaviour
 
     #region Properties
 
+    public AllosiusDev.AudioData SfxSentinelDetection => sfxSentinelDetection;
+    public AllosiusDev.AudioData AmbientSentinelAbsorption => ambientSentinelAbsorption;
+
     public bool PlayerInSightRange => playerInSightRange;
+
+    public bool CellPlayerInSightRange => cellPlayerInSightRange;
+
+    public Cell SentinelCell => sentinelCell;
+
+    public SentinelView SentinelView => sentinelView;
+
+    public bool SentinelAlarmActived => sentinelAlarmActived;
 
     #endregion
 
@@ -35,16 +46,13 @@ public class Sentinel : MonoBehaviour
 
     [SerializeField] private float timeInterval;
 
+    [SerializeField] private float rotationAngle = 30.0f;
+
     [SerializeField] private Cell sentinelCell;
 
     #endregion
 
-    private void Awake()
-    {
-        
-    }
-
-    private void Start()
+    public virtual void Start()
     {
         sentinelCell.SetCellEmpty(false);
         sentinelCell.SetCurrentCellObject(this.gameObject);
@@ -52,10 +60,10 @@ public class Sentinel : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         playerInSightRange = sentinelView.checkTargetInFieldOfView;
-        if(playerInSightRange)
+        if(playerInSightRange || CellPlayerInSightRange)
         {
             GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
             AddCountTime(Time.deltaTime);
@@ -83,6 +91,21 @@ public class Sentinel : MonoBehaviour
         cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
     }
 
+    public void SetPlayerInSightRange(bool value)
+    {
+        playerInSightRange = value;
+    }
+
+    public void SetSentinelAlarmActived(bool value)
+    {
+        sentinelAlarmActived = value;
+    }
+
+
+    public void SetCellPlayerInSightRange(bool value)
+    {
+        cellPlayerInSightRange = value;
+    }
     public void AddCountTime(float amount)
     {
         countTimer += amount;
@@ -98,7 +121,7 @@ public class Sentinel : MonoBehaviour
     [ContextMenu("Sentinel Rotate")]
     public void SentinelRotate()
     {
-        transform.RotateAround(transform.position, Vector3.up, 30.0f);
+        transform.RotateAround(transform.position, Vector3.up, rotationAngle);
 
         //StartCoroutine(CheckCellPlayerInSightRange());
         //StartCoroutine(CheckPlayerInSightRange());
