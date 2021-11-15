@@ -49,5 +49,5 @@ MonoBehaviour:
   finalTeleportationEnergyCost: 3
   synthoidPrefab: {fileID: 8884328232011474380, guid: 4685fb63d117e1e43b0133f99497e6ba,
     type: 3}
-  treePrefab: {fileID: 4422302277068820626, guid: f1f8d6689c70a304396976303cabb0c6,
+  treePrefab: {fileID: 5734431349649095586, guid: d7e7fc762c51db6478a8a92415ed5dfd,
     type: 3}
