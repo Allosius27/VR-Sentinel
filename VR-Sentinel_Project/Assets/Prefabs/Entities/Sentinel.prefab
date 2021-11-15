@@ -66,6 +66,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   checkCellPlayerInFieldOfView: 0
+  absorbableObjectsTargetMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  checkAbsorbableObjectsInFieldOfView: 0
 --- !u!1 &550032378413862701
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,8 +232,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24389297, y: 0.916872, z: 0.47025776}
-  m_Center: {x: 0.007996291, y: 0.19, z: -0.0049630404}
+  m_Size: {x: 0.24389297, y: 1.2206402, z: 0.47025776}
+  m_Center: {x: 0.007996291, y: 0.6296139, z: -0.0049630404}
 --- !u!114 &6983299601548438087
 MonoBehaviour:
   m_ObjectHideFlags: 0

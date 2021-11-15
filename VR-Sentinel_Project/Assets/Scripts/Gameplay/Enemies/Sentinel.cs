@@ -23,6 +23,8 @@ public class Sentinel : MonoBehaviour
     public AllosiusDev.AudioData SfxSentinelDetection => sfxSentinelDetection;
     public AllosiusDev.AudioData AmbientSentinelAbsorption => ambientSentinelAbsorption;
 
+    public bool canRotate { get; set; }
+
     public bool PlayerInSightRange => playerInSightRange;
 
     public bool CellPlayerInSightRange => cellPlayerInSightRange;
@@ -32,6 +34,8 @@ public class Sentinel : MonoBehaviour
     public SentinelView SentinelView => sentinelView;
 
     public bool SentinelAlarmActived => sentinelAlarmActived;
+
+    public float RotationAngle => rotationAngle;
 
     #endregion
 
@@ -57,6 +61,8 @@ public class Sentinel : MonoBehaviour
         sentinelCell.SetCellEmpty(false);
         sentinelCell.SetCurrentCellObject(this.gameObject);
         sentinelCell.isSentinelPiedestal = true;
+
+        canRotate = true;
     }
 
     // Update is called once per frame
@@ -120,9 +126,12 @@ public class Sentinel : MonoBehaviour
     }
 
     [ContextMenu("Sentinel Rotate")]
-    public void SentinelRotate()
+    public virtual void SentinelRotate()
     {
-        transform.RotateAround(transform.position, Vector3.up, rotationAngle);
+        if (canRotate)
+        {
+            transform.RotateAround(transform.position, Vector3.up, rotationAngle);
+        }
 
         //StartCoroutine(CheckCellPlayerInSightRange());
         //StartCoroutine(CheckPlayerInSightRange());

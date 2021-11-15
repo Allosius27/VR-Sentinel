@@ -6,9 +6,7 @@ public class SentrieView : SentinelView
 {
     #region UnityInspector
 
-    public LayerMask absorbableObjectsTargetMask;
-
-    public bool checkAbsorbableObjectsInFieldOfView;
+    
 
     #endregion
 
@@ -25,7 +23,7 @@ public class SentrieView : SentinelView
         }
     }
 
-	protected void FindVisibleAbsorbableObjectsTargets()
+	protected override void FindVisibleAbsorbableObjectsTargets()
 	{
 		visibleTargets.Clear();
 		checkAbsorbableObjectsInFieldOfView = false;
@@ -43,7 +41,8 @@ public class SentrieView : SentinelView
 					visibleTargets.Add(target);
 					checkAbsorbableObjectsInFieldOfView = true;
 					if(target.GetComponent<AbsorbableObject>() != null && target.GetComponent<AbsorbableObject>().cellAssociated != null && target.GetComponent<AbsorbableObject>().EnergyPoints > 1 &&
-						target.GetComponent<Entity>() != null && target.GetComponent<Entity>().type != Entity.Type.Sentinel && target.GetComponent<Entity>().type != Entity.Type.Sentrie)
+						target.GetComponent<Entity>() != null && target.GetComponent<Entity>().type != Entity.Type.Sentinel && target.GetComponent<Entity>().type != Entity.Type.Sentrie
+						&& target.GetComponent<Entity>().type != Entity.Type.Meanie)
                     {
 						GameCore.Instance.DestroyCellObject(target.GetComponent<AbsorbableObject>().cellAssociated,
 							target.GetComponent<AbsorbableObject>().cellAssociated.CurrentCellObjects, target.GetComponent<AbsorbableObject>().cellAssociated.CurrentCellObjects.Count - 1);

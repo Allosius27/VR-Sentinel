@@ -343,7 +343,7 @@ public class PlayerManager : MonoBehaviour
     [ContextMenu("Special Teleport")]
     public void SpecialTeleport()
     {
-        if(GameCore.Instance.ListEnemies.Count < 1 && currentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
+        if(GameCore.Instance.Sentinel == null && currentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
         {
             Debug.Log("Final Teleportation");
 

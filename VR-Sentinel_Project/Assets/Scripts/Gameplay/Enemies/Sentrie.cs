@@ -8,6 +8,8 @@ public class Sentrie : Sentinel
     {
         SentinelCell.SetCellEmpty(false);
         SentinelCell.SetCurrentCellObject(this.gameObject);
+
+        canRotate = true;
     }
 
     public override void Update()
