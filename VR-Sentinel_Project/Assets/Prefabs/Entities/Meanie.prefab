@@ -226,9 +226,11 @@ MonoBehaviour:
     type: 2}
   ambientSentinelAbsorption: {fileID: 11400000, guid: 130cd3e601fa3584fad8e4803886e71c,
     type: 2}
+  groundCheck: {fileID: 720160199031190198}
+  groundCheckRadius: 0.43
   sentinelView: {fileID: 7725326911121506262}
   timeInterval: 1
-  rotationAngle: 30
+  rotationAngle: 60
   sentinelCell: {fileID: 0}
 --- !u!1 &7725326911121506261
 GameObject:

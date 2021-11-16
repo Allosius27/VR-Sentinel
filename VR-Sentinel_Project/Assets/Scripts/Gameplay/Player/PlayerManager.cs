@@ -288,11 +288,11 @@ public class PlayerManager : MonoBehaviour
 
             if (GameCore.Instance.Sentinel.PlayerInSightRange)
             {
-                InstantiateObject(GameCore.Instance.TreePrefab, currentPlayerCell);
+                GameCore.Instance.InstantiateObject(GameCore.Instance.TreePrefab, currentPlayerCell);
             }
             else
             {
-                InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
+                GameCore.Instance.InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
             }
 
             transform.position = _cellDestination.CurrentCellObjects[_cellDestination.CurrentCellObjects.Count - 1].transform.position;
@@ -381,7 +381,7 @@ public class PlayerManager : MonoBehaviour
             {
                 AllosiusDev.AudioManager.Play(sfxCreateObject.sound);
 
-                InstantiateObject(_objectToCreate, _selectedCell);
+                GameCore.Instance.InstantiateObject(_objectToCreate, _selectedCell);
 
                 ChangeEnergyPoints(-_energyCost, false);
 
@@ -400,7 +400,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     AllosiusDev.AudioManager.Play(sfxCreateObject.sound);
 
-                    InstantiateObject(_objectToCreate, _selectedCell);
+                    GameCore.Instance.InstantiateObject(_objectToCreate, _selectedCell);
 
                     ChangeEnergyPoints(-_energyCost, false);
 
@@ -467,33 +467,6 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    
-
-    private void InstantiateObject(GameObject objToInstantiate, Cell cell)
-    {
-        GameObject _object = Instantiate(objToInstantiate);
-        if (cell.CellEmpty)
-        {
-            cell.SetCellEmpty(false);
-
-            _object.transform.SetParent(cell.ObjectSpawnPoint);
-        }
-        else
-        {
-            _object.transform.SetParent(cell.CurrentCellObjects[cell.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
-        }
-
-        _object.transform.localPosition = Vector3.zero;
-        _object.transform.rotation = Quaternion.identity;
-
-        AbsorbableObject absorbableObject = _object.GetComponent<AbsorbableObject>();
-        absorbableObject.cellAssociated = cell;
-        cell.SetStackableState(absorbableObject.StackableObject);
-        cell.SetCanTeleport(absorbableObject.CanTeleportObject);
-
-        cell.SetCurrentCellObject(_object);
     }
 
     public void ChangeEnergyPoints(int amount, bool canDie)

@@ -11,6 +11,7 @@ public class Cell : MonoBehaviour
     private bool canTeleport;
 
     private Color baseColor;
+    private Material baseMaterial;
 
     #endregion
 
@@ -22,7 +23,8 @@ public class Cell : MonoBehaviour
 
     public bool isSentinelPiedestal { get; set; }
 
-    public Color HoverColor => hoverColor;
+    //public Color HoverColor => hoverColor;
+    public Material HoverMaterial => hoverMaterial;
 
     public GameObject VisualDetection => visualDetection;
 
@@ -41,7 +43,8 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private bool cellEmpty;
 
-    [SerializeField] private Color hoverColor;
+    //[SerializeField] private Color hoverColor;
+    [SerializeField] private Material hoverMaterial;
 
     [SerializeField] private GameObject visualDetection;
 
@@ -59,6 +62,7 @@ public class Cell : MonoBehaviour
     private void Awake()
     {
         baseColor = meshRenderer.material.color;
+        baseMaterial = meshRenderer.material;
     }
 
     private void Start()
@@ -130,11 +134,13 @@ public class Cell : MonoBehaviour
     {
         if (value)
         {
-            meshRenderer.material.color = hoverColor;
+            //meshRenderer.material.color = hoverColor;
+            meshRenderer.material = hoverMaterial;
         }
         else
         {
-            meshRenderer.material.color = baseColor;
+            //meshRenderer.material.color = baseColor;
+            meshRenderer.material = baseMaterial;
         }
     }
 

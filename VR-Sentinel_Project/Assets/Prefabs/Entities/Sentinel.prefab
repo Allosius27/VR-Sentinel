@@ -53,7 +53,7 @@ MonoBehaviour:
     m_Bits: 512
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 1024
   checkTargetInFieldOfView: 0
   visibleTargets: []
   meshResolution: 2
@@ -679,6 +679,8 @@ MonoBehaviour:
     type: 2}
   ambientSentinelAbsorption: {fileID: 11400000, guid: 130cd3e601fa3584fad8e4803886e71c,
     type: 2}
+  groundCheck: {fileID: 6983299601548438085}
+  groundCheckRadius: 0.43
   sentinelView: {fileID: 7943812872817429630}
   timeInterval: 1
   rotationAngle: 30

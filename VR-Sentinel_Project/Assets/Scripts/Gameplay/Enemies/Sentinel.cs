@@ -23,6 +23,9 @@ public class Sentinel : MonoBehaviour
     public AllosiusDev.AudioData SfxSentinelDetection => sfxSentinelDetection;
     public AllosiusDev.AudioData AmbientSentinelAbsorption => ambientSentinelAbsorption;
 
+    public Transform GroundCheck => groundCheck;
+    public float GroundCheckRadius => groundCheckRadius;
+
     public bool canRotate { get; set; }
 
     public bool PlayerInSightRange => playerInSightRange;
@@ -46,6 +49,9 @@ public class Sentinel : MonoBehaviour
 
     [Space]
 
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius;
+
     [SerializeField] private SentinelView sentinelView;
 
     [SerializeField] private float timeInterval;
@@ -58,11 +64,26 @@ public class Sentinel : MonoBehaviour
 
     public virtual void Start()
     {
+        Collider[] hitColliders = Physics.OverlapSphere(groundCheck.position, groundCheckRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            Debug.Log(hitCollider.name);
+
+            if (hitCollider.gameObject.GetComponent<Cell>() != null)
+            {
+                Debug.Log(gameObject.name + "collides");
+                SetSentinelCell(hitCollider.gameObject.GetComponent<Cell>());
+            }
+        }
+
         sentinelCell.SetCellEmpty(false);
         sentinelCell.SetCurrentCellObject(this.gameObject);
         sentinelCell.isSentinelPiedestal = true;
 
+        GetComponent<Outline>().enabled = false;
+
         canRotate = true;
+
     }
 
     // Update is called once per frame
@@ -70,7 +91,7 @@ public class Sentinel : MonoBehaviour
     {
         playerInSightRange = sentinelView.checkTargetInFieldOfView;
         cellPlayerInSightRange = sentinelView.checkCellPlayerInFieldOfView;
-        if(playerInSightRange || CellPlayerInSightRange)
+        if(/*playerInSightRange ||*/ cellPlayerInSightRange)
         {
             //GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
             AddCountTime(Time.deltaTime);
@@ -96,6 +117,27 @@ public class Sentinel : MonoBehaviour
             }
         }
 
+        CheckMeanieActivation();
+
+    }
+
+    public void CheckMeanieActivation()
+    {
+        if (playerInSightRange && !cellPlayerInSightRange)
+        {
+            if (canRotate && sentinelView.checkAbsorbableObjectsInFieldOfView && sentinelView.AbsorbableTarget != null)
+            {
+                Cell _cell = sentinelView.AbsorbableTarget.GetComponent<AbsorbableObject>().cellAssociated;
+                GameCore.Instance.DestroyCellObject(_cell, sentinelView.AbsorbableTarget.GetComponent<AbsorbableObject>().cellAssociated.CurrentCellObjects,
+                    sentinelView.AbsorbableTarget.GetComponent<AbsorbableObject>().cellAssociated.CurrentCellObjects.Count - 1);
+                GameObject meanie = GameCore.Instance.InstantiateObject(GameCore.Instance.MeaniePrefab, _cell);
+                meanie.GetComponent<Meanie>().sentinelCreator = this;
+                meanie.GetComponent<Meanie>().SetSentinelCell(_cell);
+                GameCore.Instance.ListEnemies.Add(meanie);
+
+                canRotate = false;
+            }
+        }
     }
 
     public void SetPlayerInSightRange(bool value)
@@ -106,6 +148,11 @@ public class Sentinel : MonoBehaviour
     public void SetSentinelAlarmActived(bool value)
     {
         sentinelAlarmActived = value;
+    }
+
+    public void SetSentinelCell(Cell cell)
+    {
+        sentinelCell = cell;
     }
 
 
@@ -153,4 +200,10 @@ public class Sentinel : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
     }*/
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
 }

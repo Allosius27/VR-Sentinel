@@ -31,6 +31,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     public Sentinel Sentinel => sentinel;
 
     public GameObject SynthoidPrefab => synthoidPrefab;
+    public GameObject MeaniePrefab => meaniePrefab;
     public GameObject TreePrefab => treePrefab;
 
     public int FinalTeleportationEnergyCost => finalTeleportationEnergyCost;
@@ -45,14 +46,13 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     [SerializeField] private int finalTeleportationEnergyCost = 3;
 
-    #endregion
-
-    #region Behaviour
-
     [SerializeField] private GameObject synthoidPrefab;
+    [SerializeField] private GameObject meaniePrefab;
     [SerializeField] private GameObject treePrefab;
 
     #endregion
+
+    #region Behaviour
 
     protected override void Awake()
     {
@@ -63,13 +63,13 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         var sentinels = FindObjectsOfType<Sentinel>();
         for (int i = 0; i < sentinels.Length; i++)
         {
-            if(sentinels[i].GetComponent<Entity>().type == Entity.Type.Sentinel)
+            if (sentinels[i].GetComponent<Entity>().type == Entity.Type.Sentinel)
             {
                 sentinel = sentinels[i];
             }
             listEnemies.Add(sentinels[i].gameObject);
         }
-        
+
     }
 
     private void Start()
@@ -88,14 +88,14 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         bool enemyActive = false;
         for (int i = 0; i < ListEnemies.Count; i++)
         {
-            if (ListEnemies[i] != null && ListEnemies[i].GetComponent<Sentinel>().PlayerInSightRange
-                || ListEnemies[i].GetComponent<Sentinel>().CellPlayerInSightRange)
+            if (/*ListEnemies[i] != null && ListEnemies[i].GetComponent<Sentinel>().PlayerInSightRange
+                ||*/ ListEnemies[i].GetComponent<Sentinel>().CellPlayerInSightRange)
             {
                 enemyActive = true;
             }
         }
 
-        if(enemyActive)
+        if (enemyActive)
         {
             PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
         }
@@ -122,9 +122,55 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
     }
 
+    public void DestroyMeanie(Meanie meanie, Cell cell)
+    {
+        Debug.Log("Destroy Meanie");
+
+        meanie.SetCurrentTotalRotation(0.0f);
+        meanie.sentinelCreator.canRotate = true;
+        if (ListEnemies.Contains(this.gameObject))
+        {
+            ListEnemies.Remove(this.gameObject);
+        }
+        DestroyCellObject(cell, cell.CurrentCellObjects,
+            cell.CurrentCellObjects.Count - 1);
+        InstantiateObject(TreePrefab, cell);
+    }
+
+    public GameObject InstantiateObject(GameObject objToInstantiate, Cell cell)
+    {
+        GameObject _object = Instantiate(objToInstantiate);
+        if (cell.CellEmpty)
+        {
+            cell.SetCellEmpty(false);
+
+            _object.transform.SetParent(cell.ObjectSpawnPoint);
+        }
+        else
+        {
+            _object.transform.SetParent(cell.CurrentCellObjects[cell.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
+        }
+
+        _object.transform.localPosition = Vector3.zero;
+        _object.transform.rotation = Quaternion.identity;
+
+        AbsorbableObject absorbableObject = _object.GetComponent<AbsorbableObject>();
+        absorbableObject.cellAssociated = cell;
+        cell.SetStackableState(absorbableObject.StackableObject);
+        cell.SetCanTeleport(absorbableObject.CanTeleportObject);
+
+        cell.SetCurrentCellObject(_object);
+
+        return _object;
+    }
+
     [ContextMenu("GameOver")]
     public void GameOver()
     {
         StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
     }
+
+    #endregion
+
+
 }

@@ -103,7 +103,10 @@ public class VRPointer : MonoBehaviour {
             {
                 for (int j = 0; j < GameCore.Instance.ListCells[i].CurrentCellObjects.Count; j++)
                 {
-                    GameCore.Instance.ListCells[i].CurrentCellObjects[j].GetComponent<AbsorbableObject>().Outline.enabled = false;
+                    if (GameCore.Instance.ListCells[i].CurrentCellObjects[j] != null)
+                    {
+                        GameCore.Instance.ListCells[i].CurrentCellObjects[j].GetComponent<AbsorbableObject>().Outline.enabled = false;
+                    }
                 }
                 
             }

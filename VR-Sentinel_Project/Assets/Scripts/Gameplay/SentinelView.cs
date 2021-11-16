@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class SentinelView : FieldOfView
 {
+	#region Fields
+
+	private Transform absorbableTarget;
+
+	#endregion
+
+	#region Properties
+
+	public Transform AbsorbableTarget => absorbableTarget;
+
+    #endregion
+
     #region UnityInspector
 
     public LayerMask cellPlayerTargetMask;
@@ -55,6 +67,7 @@ public class SentinelView : FieldOfView
 	{
 		visibleTargets.Clear();
 		checkAbsorbableObjectsInFieldOfView = false;
+		absorbableTarget = null;
 		Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, absorbableObjectsTargetMask);
 
 		for (int i = 0; i < targetsInViewRadius.Length; i++)
@@ -68,11 +81,16 @@ public class SentinelView : FieldOfView
 				{
 					visibleTargets.Add(target);
 					checkAbsorbableObjectsInFieldOfView = true;
-					if (target.GetComponent<AbsorbableObject>() != null && target.GetComponent<AbsorbableObject>().cellAssociated != null && target.GetComponent<AbsorbableObject>().EnergyPoints > 1 &&
+					if (target.GetComponent<AbsorbableObject>() != null && target.GetComponent<AbsorbableObject>().cellAssociated != null && target.GetComponent<AbsorbableObject>().EnergyPoints <= 1 &&
 						target.GetComponent<Entity>() != null && target.GetComponent<Entity>().type != Entity.Type.Sentinel && target.GetComponent<Entity>().type != Entity.Type.Sentrie
 						&& target.GetComponent<Entity>().type != Entity.Type.Meanie)
 					{
-						
+						absorbableTarget = target;
+					}
+					else if (target.GetComponent<DetectionAbsorbableObject>() != null && target.GetComponent<DetectionAbsorbableObject>().AbsorbableObject.cellAssociated != null 
+						&& target.GetComponent<DetectionAbsorbableObject>().AbsorbableObject.EnergyPoints <= 1)
+                    {
+						absorbableTarget = target.GetComponent<DetectionAbsorbableObject>().AbsorbableObject.transform;
 					}
 				}
 			}
