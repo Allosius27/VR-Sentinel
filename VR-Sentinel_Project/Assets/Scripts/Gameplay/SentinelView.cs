@@ -14,9 +14,11 @@ public class SentinelView : FieldOfView
 
 	public Transform AbsorbableTarget => absorbableTarget;
 
-    #endregion
+	#endregion
 
-    #region UnityInspector
+	#region UnityInspector
+
+	[SerializeField] private Animator viewAnimator;
 
     public LayerMask cellPlayerTargetMask;
 
@@ -29,6 +31,18 @@ public class SentinelView : FieldOfView
 	#endregion
 
 	#region Behaviour
+
+	public virtual void Update()
+    {
+		if(checkCellPlayerInFieldOfView)
+        {
+			SetAnimatorSpeed(0.0f);
+        }
+		else
+        {
+			SetAnimatorSpeed(1.0f);
+        }
+    }
 
 	public override IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -96,6 +110,11 @@ public class SentinelView : FieldOfView
 			}
 		}
 	}
+
+	protected void SetAnimatorSpeed(float value)
+    {
+		viewAnimator.speed = value;
+    }
 
 	#endregion
 }

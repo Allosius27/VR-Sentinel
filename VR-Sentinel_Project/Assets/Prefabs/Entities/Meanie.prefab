@@ -294,6 +294,7 @@ MonoBehaviour:
   viewMeshFilter:
   - {fileID: 516009224192990570}
   - {fileID: 1160928564821575079}
+  viewAnimator: {fileID: 0}
   cellPlayerTargetMask:
     serializedVersion: 2
     m_Bits: 2048
