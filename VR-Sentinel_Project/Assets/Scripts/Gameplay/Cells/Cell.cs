@@ -39,6 +39,11 @@ public class Cell : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius;
+
+    [Space]
+
     [SerializeField] private MeshRenderer meshRenderer;
 
     [SerializeField] private bool cellEmpty;
@@ -52,9 +57,6 @@ public class Cell : MonoBehaviour
     [SerializeField] private Transform objectSpawnPoint;
     [SerializeField] private List<GameObject> currentCellObjects = new List<GameObject>();
 
-    //[SerializeField] private Transform groundCheck;
-    //[SerializeField] private float groundCheckRadius;
-
     #endregion
 
     #region Behaviour
@@ -67,6 +69,18 @@ public class Cell : MonoBehaviour
 
     private void Start()
     {
+        Collider[] hitColliders = Physics.OverlapSphere(groundCheck.position, groundCheckRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            Debug.Log(hitCollider.name);
+
+            if (hitCollider.gameObject.GetComponent<Entity>() != null && hitCollider.gameObject.GetComponent<Entity>().type == Entity.Type.AbsorbableObject)
+            {
+                Debug.Log(gameObject.name + "collides");
+                AttributeObjectAtCell(hitCollider.gameObject);
+            }
+        }
+
         teleportPoint.gameObject.SetActive(true);
         SetTeleportPointLocked(true);
 
@@ -110,6 +124,30 @@ public class Cell : MonoBehaviour
 
     }
 
+    public void AttributeObjectAtCell(GameObject _object)
+    {
+        if (cellEmpty)
+        {
+            SetCellEmpty(false);
+
+            _object.transform.SetParent(objectSpawnPoint);
+        }
+        else
+        {
+            _object.transform.SetParent(currentCellObjects[currentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
+        }
+
+        _object.transform.localPosition = Vector3.zero;
+        _object.transform.rotation = Quaternion.identity;
+
+        AbsorbableObject absorbableObject = _object.GetComponent<AbsorbableObject>();
+        absorbableObject.cellAssociated = this;
+        SetStackableState(absorbableObject.StackableObject);
+        SetCanTeleport(absorbableObject.CanTeleportObject);
+
+        SetCurrentCellObject(_object);
+    }
+
     public void SetCurrentCellObject(GameObject _object)
     {
         currentCellObjects.Add(_object);
@@ -151,9 +189,9 @@ public class Cell : MonoBehaviour
 
     #endregion
 
-    /*private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-    }*/
+    }
 }

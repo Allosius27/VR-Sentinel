@@ -7034,15 +7034,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.481
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85599995
+      value: 0.804
       objectReference: {fileID: 0}
     - target: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.419
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2359492, guid: fe204993f83ea534c99e733c6ff995a8, type: 3}
       propertyPath: m_Materials.Array.data[0]

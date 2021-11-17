@@ -11,6 +11,8 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 
     public Slider LoadingSlider => loadingSlider;
 
+    public Image FadingImage => fadingImage;
+
 
     #endregion
 
@@ -19,6 +21,8 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
     [SerializeField] private Image dangerImage;
 
     [SerializeField] private Slider loadingSlider;
+
+    [SerializeField] private Image fadingImage;
 
     #endregion
 }

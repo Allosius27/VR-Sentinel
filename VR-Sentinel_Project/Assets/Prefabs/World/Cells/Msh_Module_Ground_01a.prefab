@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153784643455856135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 0.529, z: 1.34}
+  m_LocalPosition: {x: 0.53, y: 0.529, z: 1.186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6846545708988663904}
@@ -554,6 +554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6aa28cb1ddff94ca36a5611744e085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundCheck: {fileID: 321713358124606157}
+  groundCheckRadius: 0.31
   meshRenderer: {fileID: 5931569578322245456}
   cellEmpty: 1
   hoverMaterial: {fileID: 2100000, guid: 18427241664007a458e04d076215e944, type: 2}

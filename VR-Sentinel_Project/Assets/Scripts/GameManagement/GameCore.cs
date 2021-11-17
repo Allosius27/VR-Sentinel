@@ -140,26 +140,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     public GameObject InstantiateObject(GameObject objToInstantiate, Cell cell)
     {
         GameObject _object = Instantiate(objToInstantiate);
-        if (cell.CellEmpty)
-        {
-            cell.SetCellEmpty(false);
 
-            _object.transform.SetParent(cell.ObjectSpawnPoint);
-        }
-        else
-        {
-            _object.transform.SetParent(cell.CurrentCellObjects[cell.CurrentCellObjects.Count - 1].GetComponent<AbsorbableObject>().ObjectSpawnPoint);
-        }
-
-        _object.transform.localPosition = Vector3.zero;
-        _object.transform.rotation = Quaternion.identity;
-
-        AbsorbableObject absorbableObject = _object.GetComponent<AbsorbableObject>();
-        absorbableObject.cellAssociated = cell;
-        cell.SetStackableState(absorbableObject.StackableObject);
-        cell.SetCanTeleport(absorbableObject.CanTeleportObject);
-
-        cell.SetCurrentCellObject(_object);
+        cell.AttributeObjectAtCell(_object);
 
         return _object;
     }

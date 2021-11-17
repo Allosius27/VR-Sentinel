@@ -34,7 +34,7 @@ public class SentinelView : FieldOfView
 
 	public virtual void Update()
     {
-		if(checkCellPlayerInFieldOfView)
+		if(checkCellPlayerInFieldOfView ||  checkTargetInFieldOfView)
         {
 			SetAnimatorSpeed(0.0f);
         }
