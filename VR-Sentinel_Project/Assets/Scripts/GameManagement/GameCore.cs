@@ -50,6 +50,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     [SerializeField] private GameObject meaniePrefab;
     [SerializeField] private GameObject treePrefab;
 
+    [SerializeField] private Cell basePlayerCell;
+
     #endregion
 
     #region Behaviour
@@ -69,6 +71,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
             }
             listEnemies.Add(sentinels[i].gameObject);
         }
+
+        playerManager.CurrentPlayerCell = basePlayerCell;
 
     }
 
@@ -152,6 +156,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     public void GameOver()
     {
         StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
+    }
+
+    public void Victory()
+    {
+        playerManager.PlayerCanvasManager.Quit();
     }
 
     #endregion

@@ -22,11 +22,12 @@ public class PlayerManager : MonoBehaviour
 
     #region Properties
 
+    public PlayerCanvasManager PlayerCanvasManager => playerCanvasManager;
     public GlobalPlayerCanvasManager GlobalPlayerCanvasManager => globalPlayerCanvasManager;
 
     public CreationSlot currentCreationSlotSelected { get; set; }
 
-    public Cell CurrentPlayerCell => currentPlayerCell;
+    public Cell CurrentPlayerCell { get; set; }
     public Cell cellObjectSelected { get; set; }
 
     public bool constructionModeActive { get; protected set; }
@@ -42,8 +43,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private AllosiusDev.AudioData sfxAbsorbObject;
 
     [Space]
-
-    [SerializeField] private Cell currentPlayerCell;
 
     [SerializeField] private int currentEnergyPoints;
 
@@ -109,17 +108,17 @@ public class PlayerManager : MonoBehaviour
         SpecialTeleportationRight.AddOnStateDownListener(SpecialTeleportationTriggerDown, handType);
         SpecialTeleportationRight.AddOnStateUpListener(SpecialTeleportationTriggerUp, handType);
 
-        transform.position = currentPlayerCell.ObjectSpawnPoint.position;
+        transform.position = CurrentPlayerCell.ObjectSpawnPoint.position;
 
-        currentPlayerCell.gameObject.layer = 0;
-        for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+        CurrentPlayerCell.gameObject.layer = 0;
+        for (int i = 0; i < CurrentPlayerCell.transform.childCount; i++)
         {
-            if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+            if (CurrentPlayerCell.transform.GetChild(i).gameObject != CurrentPlayerCell.VisualDetection)
             {
-                currentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
+                CurrentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
             }
         }
-        currentPlayerCell.VisualDetection.SetActive(true);
+        CurrentPlayerCell.VisualDetection.SetActive(true);
     }
 
     private void Update()
@@ -288,36 +287,36 @@ public class PlayerManager : MonoBehaviour
 
             if (GameCore.Instance.Sentinel.PlayerInSightRange)
             {
-                GameCore.Instance.InstantiateObject(GameCore.Instance.TreePrefab, currentPlayerCell);
+                GameCore.Instance.InstantiateObject(GameCore.Instance.TreePrefab, CurrentPlayerCell);
             }
             else
             {
-                GameCore.Instance.InstantiateObject(GameCore.Instance.SynthoidPrefab, currentPlayerCell);
+                GameCore.Instance.InstantiateObject(GameCore.Instance.SynthoidPrefab, CurrentPlayerCell);
             }
 
             transform.position = _cellDestination.CurrentCellObjects[_cellDestination.CurrentCellObjects.Count - 1].transform.position;
-            
-            currentPlayerCell.gameObject.layer = 10;
-            for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+
+            CurrentPlayerCell.gameObject.layer = 10;
+            for (int i = 0; i < CurrentPlayerCell.transform.childCount; i++)
             {
-                if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+                if (CurrentPlayerCell.transform.GetChild(i).gameObject != CurrentPlayerCell.VisualDetection)
                 {
-                    currentPlayerCell.transform.GetChild(i).gameObject.layer = 10;
+                    CurrentPlayerCell.transform.GetChild(i).gameObject.layer = 10;
                 }
             }
-            currentPlayerCell.VisualDetection.SetActive(false);
+            CurrentPlayerCell.VisualDetection.SetActive(false);
 
-            currentPlayerCell = _cellDestination;
+            CurrentPlayerCell = _cellDestination;
 
-            currentPlayerCell.gameObject.layer = 0;
-            for (int i = 0; i < currentPlayerCell.transform.childCount; i++)
+            CurrentPlayerCell.gameObject.layer = 0;
+            for (int i = 0; i < CurrentPlayerCell.transform.childCount; i++)
             {
-                if (currentPlayerCell.transform.GetChild(i).gameObject != currentPlayerCell.VisualDetection)
+                if (CurrentPlayerCell.transform.GetChild(i).gameObject != CurrentPlayerCell.VisualDetection)
                 {
-                    currentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
+                    CurrentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
                 }
             }
-            currentPlayerCell.VisualDetection.SetActive(true);
+            CurrentPlayerCell.VisualDetection.SetActive(true);
 
             GameCore.Instance.DestroyCellObject(_cellDestination, _cellDestination.CurrentCellObjects, _cellDestination.CurrentCellObjects.Count - 1);
             _cellDestination = null;
@@ -343,14 +342,14 @@ public class PlayerManager : MonoBehaviour
     [ContextMenu("Special Teleport")]
     public void SpecialTeleport()
     {
-        if(GameCore.Instance.Sentinel == null && currentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
+        if(GameCore.Instance.Sentinel == null && CurrentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
         {
             Debug.Log("Final Teleportation");
 
             ChangeEnergyPoints(-GameCore.Instance.FinalTeleportationEnergyCost, false);
 
             Debug.Log("Victory !!!");
-            playerCanvasManager.Quit();
+            
         }
         else
         {
@@ -358,7 +357,7 @@ public class PlayerManager : MonoBehaviour
             List<Cell> randomCells = new List<Cell>();
             for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
             {
-                if(GameCore.Instance.ListCells[i].transform.position.y <= currentPlayerCell.transform.position.y && GameCore.Instance.ListCells[i].CellEmpty 
+                if(GameCore.Instance.ListCells[i].transform.position.y <= CurrentPlayerCell.transform.position.y && GameCore.Instance.ListCells[i].CellEmpty 
                     && GameCore.Instance.ListCells[i].transform.position.y >= minCellPos)
                 {
                     randomCells.Add(GameCore.Instance.ListCells[i]);

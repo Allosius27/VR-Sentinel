@@ -13,6 +13,8 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 
     public Image FadingImage => fadingImage;
 
+    public GameObject VictoryImage => victoryImage;
+
 
     #endregion
 
@@ -23,6 +25,19 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
     [SerializeField] private Slider loadingSlider;
 
     [SerializeField] private Image fadingImage;
+
+    [SerializeField] private GameObject victoryImage;
+
+    #endregion
+
+    #region Behaviour
+
+    private void Start()
+    {
+        fadingImage.gameObject.SetActive(true);
+
+        victoryImage.SetActive(false);
+    }
 
     #endregion
 }

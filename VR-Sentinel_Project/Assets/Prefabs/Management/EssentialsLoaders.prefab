@@ -47,3 +47,4 @@ MonoBehaviour:
     type: 3}
   sceneLoader: {fileID: 5468755187622505815, guid: 6b169d31fa4ef4e42bb7a45d0aa30403,
     type: 3}
+  player: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}

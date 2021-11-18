@@ -293,7 +293,6 @@ MonoBehaviour:
   sfxTeleport: {fileID: 11400000, guid: eb934dd85c193c9449c1a9c2e45b12aa, type: 2}
   sfxCreateObject: {fileID: 11400000, guid: 4b0418d6a9be1a245b64fdbb3961c161, type: 2}
   sfxAbsorbObject: {fileID: 11400000, guid: 6335ee64cd2a59c46bff4ebdbe835628, type: 2}
-  currentPlayerCell: {fileID: 0}
   currentEnergyPoints: 8
   timeToActivateSpecialTeleportation: 0.5
   minCellPos: 1.35

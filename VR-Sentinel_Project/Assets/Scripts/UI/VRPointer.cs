@@ -10,7 +10,7 @@ public class VRPointer : MonoBehaviour {
     [SerializeField] private float defaultLenght = 5f;
     [SerializeField] private GameObject dot;
     [SerializeField] private VRInputModule inputModule;
-    [SerializeField] private Text debugText;
+    //[SerializeField] private Text debugText;
 
     private LineRenderer lineRenderer;
 
@@ -71,10 +71,10 @@ public class VRPointer : MonoBehaviour {
                 debugTextValue = 0;
             }
 
-            if (debugText != null)
+            /*if (debugText != null)
             {
                 debugText.text = debugTextValue.ToString();
-            }
+            }*/
 
             endPosition = hit.point;
         }
