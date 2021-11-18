@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EssentialsLoaders : MonoBehaviour
 {
-    [SerializeField] private GameObject audioMan, sceneLoader;
+    [SerializeField] private GameObject audioMan, sceneLoader, player;
 
     private void Awake()
     {
@@ -16,6 +16,12 @@ public class EssentialsLoaders : MonoBehaviour
         if (SceneLoader.Instance == null)
         {
             Instantiate(sceneLoader);
+        }
+
+        if(Valve.VR.InteractionSystem.Player.instance == null)
+        {
+            Debug.Log("INSTANTIATE PLAYER");
+            Instantiate(player);
         }
     }
 }
