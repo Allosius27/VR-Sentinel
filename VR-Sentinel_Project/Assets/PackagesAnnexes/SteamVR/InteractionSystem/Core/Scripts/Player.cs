@@ -59,6 +59,10 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
+		public void ResetInstance()
+        {
+			_instance = null;
+        }
 
 		//-------------------------------------------------
 		// Get the number of active Hands.
@@ -273,7 +277,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private IEnumerator Start()
 		{
-			if (instance == null)
+			if (_instance == null)
 			{
 				_instance = this;
 			}
