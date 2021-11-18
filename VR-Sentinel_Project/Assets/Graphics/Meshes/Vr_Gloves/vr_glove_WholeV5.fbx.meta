@@ -1,9 +1,27 @@
 fileFormatVersion: 2
-guid: 0f280d2f372e9c546aaf078acc07ffde
+guid: 3dc2a66c3a1184a4c875b58699126b65
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
-  externalObjects: {}
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bracelet
+    second: {fileID: 2100000, guid: f8e3154ecf78e084da84d9d4613ab899, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glove
+    second: {fileID: 2100000, guid: 35fbfbccff8b1d54c8ba208ec5493fed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HandPlate
+    second: {fileID: 2100000, guid: aa8ab4a701a32e94f8080b1db130bc4d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
