@@ -20,9 +20,6 @@ public class SceneLoader : AllosiusDev.Singleton<SceneLoader> {
 
     public IEnumerator LoadAsynchronously(SceneData _sceneData, float timeToWait)
     {
-        Destroy(Valve.VR.InteractionSystem.Player.instance);
-        Valve.VR.InteractionSystem.Player.instance.ResetInstance();
-
         yield return new WaitForSeconds(timeToWait);
 
         AllosiusDev.AudioManager.StopAllAmbients();
