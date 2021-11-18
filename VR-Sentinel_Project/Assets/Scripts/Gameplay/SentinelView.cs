@@ -34,14 +34,17 @@ public class SentinelView : FieldOfView
 
 	public virtual void Update()
     {
-		if(checkCellPlayerInFieldOfView ||  checkTargetInFieldOfView)
-        {
-			SetAnimatorSpeed(0.0f);
-        }
-		else
-        {
-			SetAnimatorSpeed(1.0f);
-        }
+		if (viewAnimator != null)
+		{
+			if (checkCellPlayerInFieldOfView || checkTargetInFieldOfView)
+			{
+				SetAnimatorSpeed(0.0f);
+			}
+			else
+			{
+				SetAnimatorSpeed(1.0f);
+			}
+		}
     }
 
 	public override IEnumerator FindTargetsWithDelay(float delay)
