@@ -155,30 +155,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     [ContextMenu("GameOver")]
     public void GameOver()
     {
-        StartCoroutine(TimerGameOver());
-    }
-
-    private IEnumerator TimerGameOver()
-    {
-        playerManager.GlobalPlayerCanvasManager.GameOverImage.SetActive(true);
-
-        yield return new WaitForSeconds(2f);
-
         StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
     }
 
-    [ContextMenu("Victory")]
     public void Victory()
     {
-        StartCoroutine(TimerVictory());
-    }
-
-    private IEnumerator TimerVictory()
-    {
-        playerManager.GlobalPlayerCanvasManager.VictoryImage.SetActive(true);
-
-        yield return new WaitForSeconds(2f);
-
         playerManager.PlayerCanvasManager.Quit();
     }
 

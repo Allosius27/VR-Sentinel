@@ -26,6 +26,8 @@ public class PlayerCanvasManager : MonoBehaviour
 
     [SerializeField] private List<CreationSlot> listCreationsSlots = new List<CreationSlot>();
 
+    [SerializeField] private GameObject menu;
+
     // a reference to the action
     public SteamVR_Action_Boolean ChangeSlotCreateObject;
     // a reference to the hand
@@ -101,7 +103,7 @@ public class PlayerCanvasManager : MonoBehaviour
         energyPoints.SetEnergyPointsAmount(amount);
     }
 
-    /*public void OpenMenu()
+    public void OpenMenu()
     {
         
             if(GameCore.Instance.isPaused)
@@ -113,13 +115,13 @@ public class PlayerCanvasManager : MonoBehaviour
                 GameCore.Instance.isPaused = true;
                 menu.SetActive(true);
             }
-    }*/
+    }
 
-    /*public void Resume()
+    public void Resume()
     {
         menu.SetActive(false);
         GameCore.Instance.isPaused = false;
-    }*/
+    }
 
     public void Restart()
     {
