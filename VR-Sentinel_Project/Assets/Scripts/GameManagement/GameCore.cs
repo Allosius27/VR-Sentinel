@@ -97,11 +97,13 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         if (enemyActive)
         {
-            PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
+            if(PlayerManager.GlobalPlayerCanvasManager.DangerImage != null)
+                PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = true;
         }
         else
         {
-            PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
+            if (PlayerManager.GlobalPlayerCanvasManager.DangerImage != null)
+                PlayerManager.GlobalPlayerCanvasManager.DangerImage.enabled = false;
         }
     }
 
