@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 
 public class GlobalPlayerCanvasManager : MonoBehaviour
 {
+    #region Fields
+
+    private int currentMenuButtonSelectedIndex;
+
+    #endregion
+
     #region Properties
 
     public Image DangerImage => dangerImage;
@@ -14,6 +22,9 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
     public Image FadingImage => fadingImage;
 
     public GameObject VictoryImage => victoryImage;
+    public GameObject GameOverImage => gameOverImage;
+
+    public GameObject Menu => menu;
 
 
     #endregion
@@ -27,6 +38,19 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
     [SerializeField] private Image fadingImage;
 
     [SerializeField] private GameObject victoryImage;
+    [SerializeField] private GameObject gameOverImage;
+
+    [SerializeField] private GameObject menu;
+    [SerializeField] private List<ButtonPause> buttons = new List<ButtonPause>();
+
+    // a reference to the hand
+    public SteamVR_Input_Sources handType, handType02;
+
+    // a reference to the action
+    public SteamVR_Action_Boolean ChangeButtonSelected;
+
+    // a reference to the action
+    public SteamVR_Action_Boolean ActiveButtonSelected;
 
     #endregion
 
@@ -37,6 +61,93 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
         fadingImage.gameObject.SetActive(true);
 
         victoryImage.SetActive(false);
+
+        
+
+        ChangeButtonSelected.AddOnStateDownListener(ActionTriggerDown, handType02);
+
+        ChangeButtonSelected.AddOnStateDownListener(ActionTriggerDown, handType);
+
+        ActiveButtonSelected.AddOnStateDownListener(ActiveButtonSelectedDown, handType02);
+
+        ActiveButtonSelected.AddOnStateDownListener(ActiveButtonSelectedDown, handType);
+
+    }
+
+    public void ActionTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Action Trigger is up");
+
+    }
+
+    public void ActionTriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("Action Trigger is down");
+
+        currentMenuButtonSelectedIndex++;
+        if(currentMenuButtonSelectedIndex > buttons.Count-1)
+        {
+            currentMenuButtonSelectedIndex = 0;
+        }
+        CheckButtonSelected();
+    }
+
+    public void ActiveButtonSelectedDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+    {
+        Debug.Log("ActiveButtonSelected is down");
+
+        buttons[currentMenuButtonSelectedIndex].Trigger();
+    }
+
+    public void CheckButtonSelected()
+    {
+        if (menu != null)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                if (buttons[i] == buttons[currentMenuButtonSelectedIndex])
+                {
+                    buttons[i].GetComponent<Image>().color = buttons[i].selectedColor;
+                }
+                else
+                {
+                    buttons[i].GetComponent<Image>().color = buttons[i].notSelectedColor;
+                }
+            }
+        }
+    }
+
+    public void OpenMenu()
+    {
+
+        if (GameCore.Instance.isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            GameCore.Instance.isPaused = true;
+            menu.SetActive(true);
+        }
+    }
+
+    public void Resume()
+    {
+        menu.SetActive(false);
+        GameCore.Instance.isPaused = false;
+    }
+
+    public void Restart()
+    {
+        StartCoroutine(SceneLoader.Instance.LoadAsynchronously(GameCore.Instance.LevelSceneData, 0.2f));
+    }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#endif
+        Application.Quit();
     }
 
     #endregion

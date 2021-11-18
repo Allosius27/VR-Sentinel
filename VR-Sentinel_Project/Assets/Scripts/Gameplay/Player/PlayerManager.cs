@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private float timeToActivateSpecialTeleportation;
 
-    [SerializeField] private float minCellPos = 1.35f;
+    //[SerializeField] private float minCellPos = 1.35f;
 
     [Space]
 
@@ -358,13 +358,13 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
             {
                 if(GameCore.Instance.ListCells[i].transform.position.y <= CurrentPlayerCell.transform.position.y && GameCore.Instance.ListCells[i].CellEmpty 
-                    && GameCore.Instance.ListCells[i].transform.position.y >= minCellPos)
+                    /*&& GameCore.Instance.ListCells[i].transform.position.y >= minCellPos*/)
                 {
                     randomCells.Add(GameCore.Instance.ListCells[i]);
                 }
             }
-
             int rnd = Random.Range(0, randomCells.Count);
+            Debug.Log(rnd);
             Create(randomCells[rnd], GameCore.Instance.SynthoidPrefab, GameCore.Instance.FinalTeleportationEnergyCost);
             Teleport(randomCells[rnd]);
         }

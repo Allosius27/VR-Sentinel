@@ -7,6 +7,12 @@ public class DebugMenu : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
 
+    private void Start()
+    {
+        if(GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.Menu != null)
+            menu = GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.Menu;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
