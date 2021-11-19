@@ -6,6 +6,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 {
     #region Fields
 
+    private DebugMenu debugMenu;
+
     private List<Cell> listCells = new List<Cell>();
 
     private PlayerManager playerManager;
@@ -51,6 +53,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     [SerializeField] private GameObject treePrefab;
 
     [SerializeField] private Cell basePlayerCell;
+    [SerializeField] private int baseEnergyPoints = 8;
 
     #endregion
 
@@ -61,6 +64,9 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         base.Awake();
 
         playerManager = FindObjectOfType<PlayerManager>();
+        playerManager.CurrentEnergyPoints = baseEnergyPoints;
+
+        debugMenu = FindObjectOfType<DebugMenu>();
 
         var sentinels = FindObjectsOfType<Sentinel>();
         for (int i = 0; i < sentinels.Length; i++)
@@ -85,6 +91,20 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         {
             listCells.Add(cells.ListCells[i]);
         }
+
+        playerManager.PlayerCanvasManager.SetEnergyPoints(playerManager.CurrentEnergyPoints);
+
+        playerManager.transform.position = playerManager.CurrentPlayerCell.ObjectSpawnPoint.position;
+
+        playerManager.CurrentPlayerCell.gameObject.layer = 0;
+        for (int i = 0; i < playerManager.CurrentPlayerCell.transform.childCount; i++)
+        {
+            if (playerManager.CurrentPlayerCell.transform.GetChild(i).gameObject != playerManager.CurrentPlayerCell.VisualDetection)
+            {
+                playerManager.CurrentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
+            }
+        }
+        playerManager.CurrentPlayerCell.VisualDetection.SetActive(true);
     }
 
     private void Update()
@@ -155,12 +175,37 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     [ContextMenu("GameOver")]
     public void GameOver()
     {
-        StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
+        StartCoroutine(TimerGameOver());
     }
 
+    private IEnumerator TimerGameOver()
+    {
+        playerManager.GlobalPlayerCanvasManager.GameOverImage.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        debugMenu.OpenEndGameMenu(true);
+        /*if (playerManager.GlobalPlayerCanvasManager.EndGameMenu != null)
+            playerManager.GlobalPlayerCanvasManager.EndGameMenu.SetActive(true);*/
+        //StartCoroutine(SceneLoader.Instance.LoadAsynchronously(levelSceneData, 0.2f));
+    }
+
+    [ContextMenu("Victory")]
     public void Victory()
     {
-        playerManager.PlayerCanvasManager.Quit();
+        StartCoroutine(TimerVictory());
+    }
+
+    private IEnumerator TimerVictory()
+    {
+        playerManager.GlobalPlayerCanvasManager.VictoryImage.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        debugMenu.OpenEndGameMenu(true);
+        /*if(playerManager.GlobalPlayerCanvasManager.EndGameMenu != null)
+            playerManager.GlobalPlayerCanvasManager.EndGameMenu.SetActive(true);*/
+        //playerManager.PlayerCanvasManager.Quit();
     }
 
     #endregion

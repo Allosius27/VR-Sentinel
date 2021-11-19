@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool constructionModeActive { get; protected set; }
 
+    public int CurrentEnergyPoints { get; set; }
+
     #endregion
 
     #region UnityInspector
@@ -44,11 +46,11 @@ public class PlayerManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private int currentEnergyPoints;
+
 
     [SerializeField] private float timeToActivateSpecialTeleportation;
 
-    [SerializeField] private float minCellPos = 1.35f;
+    //[SerializeField] private float minCellPos = 1.35f;
 
     [Space]
 
@@ -87,7 +89,7 @@ public class PlayerManager : MonoBehaviour
         playerCanvasManager = FindObjectOfType<PlayerCanvasManager>();
         globalPlayerCanvasManager = FindObjectOfType<GlobalPlayerCanvasManager>();
 
-        playerCanvasManager.SetEnergyPoints(currentEnergyPoints);
+        
 
         BuildActive.AddOnStateDownListener(BuildActiveTriggerDown, handType02);
         BuildActive.AddOnStateUpListener(BuildActiveTriggerUp, handType02);
@@ -108,17 +110,7 @@ public class PlayerManager : MonoBehaviour
         SpecialTeleportationRight.AddOnStateDownListener(SpecialTeleportationTriggerDown, handType);
         SpecialTeleportationRight.AddOnStateUpListener(SpecialTeleportationTriggerUp, handType);
 
-        transform.position = CurrentPlayerCell.ObjectSpawnPoint.position;
-
-        CurrentPlayerCell.gameObject.layer = 0;
-        for (int i = 0; i < CurrentPlayerCell.transform.childCount; i++)
-        {
-            if (CurrentPlayerCell.transform.GetChild(i).gameObject != CurrentPlayerCell.VisualDetection)
-            {
-                CurrentPlayerCell.transform.GetChild(i).gameObject.layer = 0;
-            }
-        }
-        CurrentPlayerCell.VisualDetection.SetActive(true);
+        
     }
 
     private void Update()
@@ -342,7 +334,7 @@ public class PlayerManager : MonoBehaviour
     [ContextMenu("Special Teleport")]
     public void SpecialTeleport()
     {
-        if(GameCore.Instance.Sentinel == null && CurrentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= currentEnergyPoints)
+        if(GameCore.Instance.Sentinel == null && CurrentPlayerCell.isSentinelPiedestal && GameCore.Instance.FinalTeleportationEnergyCost <= CurrentEnergyPoints)
         {
             Debug.Log("Final Teleportation");
 
@@ -358,13 +350,13 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < GameCore.Instance.ListCells.Count; i++)
             {
                 if(GameCore.Instance.ListCells[i].transform.position.y <= CurrentPlayerCell.transform.position.y && GameCore.Instance.ListCells[i].CellEmpty 
-                    && GameCore.Instance.ListCells[i].transform.position.y >= minCellPos)
+                    /*&& GameCore.Instance.ListCells[i].transform.position.y >= minCellPos*/)
                 {
                     randomCells.Add(GameCore.Instance.ListCells[i]);
                 }
             }
-
             int rnd = Random.Range(0, randomCells.Count);
+            Debug.Log(rnd);
             Create(randomCells[rnd], GameCore.Instance.SynthoidPrefab, GameCore.Instance.FinalTeleportationEnergyCost);
             Teleport(randomCells[rnd]);
         }
@@ -374,7 +366,7 @@ public class PlayerManager : MonoBehaviour
     public void Create(Cell _selectedCell, GameObject _objectToCreate, int _energyCost)
     {
         Debug.Log("Create Object");
-        if(_selectedCell != null && currentCreationSlotSelected != null && _energyCost <= currentEnergyPoints)
+        if(_selectedCell != null && currentCreationSlotSelected != null && _energyCost <= CurrentEnergyPoints)
         {
             if(_selectedCell.CellEmpty)
             {
@@ -419,7 +411,7 @@ public class PlayerManager : MonoBehaviour
     public void PreviewObject()
     {
         Debug.Log("Preview");
-        if (cellObjectSelected != null && currentCreationSlotSelected != null && currentCreationSlotSelected.energyPointsRequired <= currentEnergyPoints)
+        if (cellObjectSelected != null && currentCreationSlotSelected != null && currentCreationSlotSelected.energyPointsRequired <= CurrentEnergyPoints)
         {
             if (cellObjectSelected.CellEmpty)
             {
@@ -470,13 +462,13 @@ public class PlayerManager : MonoBehaviour
 
     public void ChangeEnergyPoints(int amount, bool canDie)
     {
-        if (currentEnergyPoints >= 0)
+        if (CurrentEnergyPoints >= 0)
         {
-            currentEnergyPoints += amount;
+            CurrentEnergyPoints += amount;
 
-            if (currentEnergyPoints <= 0 && canDie)
+            if (CurrentEnergyPoints <= 0 && canDie)
             {
-                currentEnergyPoints = 0;
+                CurrentEnergyPoints = 0;
 
                 Debug.Log("Game Over");
                 GameCore.Instance.GameOver();
@@ -488,7 +480,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateEnergyPoints()
     {
-        playerCanvasManager.SetEnergyPoints(currentEnergyPoints);
+        playerCanvasManager.SetEnergyPoints(CurrentEnergyPoints);
     }
 
     #endregion

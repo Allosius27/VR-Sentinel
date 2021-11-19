@@ -6,11 +6,26 @@ using UnityEngine;
 public class DebugMenu : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject endGameMenu;
+
+    private void Start()
+    {
+        if(GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.Menu != null)
+            menu = GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.Menu;
+
+        if (GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.EndGameMenu != null)
+            endGameMenu = GameCore.Instance.PlayerManager.GlobalPlayerCanvasManager.EndGameMenu;
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             OpenMenu();
+    }
+
+    public void OpenEndGameMenu(bool value)
+    {
+        endGameMenu.SetActive(value);
     }
 
     public void OpenMenu()
