@@ -12,7 +12,7 @@ public class ButtonPause : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Image>().color = notSelectedColor;
+        //GetComponent<Image>().color = notSelectedColor;
     }
 
     public void Trigger()

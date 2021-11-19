@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameCore : AllosiusDev.Singleton<GameCore>
 {
@@ -82,8 +83,10 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.1f);
+
         AllosiusDev.AudioManager.Play(mainMusic.sound);
 
         Cells cells = FindObjectOfType<Cells>();
@@ -105,6 +108,33 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
             }
         }
         playerManager.CurrentPlayerCell.VisualDetection.SetActive(true);
+
+        playerManager.GlobalPlayerCanvasManager.FadingImage.gameObject.SetActive(true);
+
+        playerManager.GlobalPlayerCanvasManager.VictoryImage.SetActive(false);
+        playerManager.GlobalPlayerCanvasManager.GameOverImage.SetActive(false);
+
+        playerManager.GlobalPlayerCanvasManager.currentMenuButtonSelectedIndex = 0;
+        playerManager.GlobalPlayerCanvasManager.currentEndGameMenuButtonSelectedIndex = 0;
+
+        playerManager.GlobalPlayerCanvasManager.CheckButtonSelected();
+        playerManager.GlobalPlayerCanvasManager.CheckEndGameButtonSelected();
+
+        playerManager.GlobalPlayerCanvasManager.Buttons[playerManager.GlobalPlayerCanvasManager.currentMenuButtonSelectedIndex].GetComponent<Image>().color = 
+            playerManager.GlobalPlayerCanvasManager.Buttons[playerManager.GlobalPlayerCanvasManager.currentMenuButtonSelectedIndex].selectedColor;
+
+        playerManager.GlobalPlayerCanvasManager.Buttons[playerManager.GlobalPlayerCanvasManager.currentEndGameMenuButtonSelectedIndex].GetComponent<Image>().color =
+            playerManager.GlobalPlayerCanvasManager.Buttons[playerManager.GlobalPlayerCanvasManager.currentEndGameMenuButtonSelectedIndex].selectedColor;
+
+        if (playerManager.GlobalPlayerCanvasManager.Menu != null)
+        {
+            playerManager.GlobalPlayerCanvasManager.Menu.SetActive(false);
+        }
+
+        if (playerManager.GlobalPlayerCanvasManager.EndGameMenu != null)
+        {
+            playerManager.GlobalPlayerCanvasManager.EndGameMenu.SetActive(false);
+        }
     }
 
     private void Update()

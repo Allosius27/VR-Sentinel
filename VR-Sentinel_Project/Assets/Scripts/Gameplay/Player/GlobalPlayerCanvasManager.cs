@@ -9,12 +9,13 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 {
     #region Fields
 
-    private int currentMenuButtonSelectedIndex;
-    private int currentEndGameMenuButtonSelectedIndex;
 
     #endregion
 
     #region Properties
+
+    public int currentMenuButtonSelectedIndex { get; set; }
+    public int currentEndGameMenuButtonSelectedIndex { get; set; }
 
     public Image DangerImage => dangerImage;
 
@@ -27,6 +28,9 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 
     public GameObject Menu => menu;
     public GameObject EndGameMenu => endGameMenu;
+
+    public List<ButtonPause> Buttons => buttons;
+    public List<ButtonPause> EndGameButtons => endGameButtons;
 
     #endregion
 
@@ -62,10 +66,7 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 
     private void Start()
     {
-        fadingImage.gameObject.SetActive(true);
-
-        victoryImage.SetActive(false);
-        gameOverImage.SetActive(false);
+        
         
 
         ChangeButtonSelected.AddOnStateDownListener(ActionTriggerDown, handType02);
@@ -76,8 +77,7 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
 
         ActiveButtonSelected.AddOnStateDownListener(ActiveButtonSelectedDown, handType);
 
-        CheckButtonSelected();
-        CheckEndGameButtonSelected();
+        
     }
 
     public void ActionTriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -114,7 +114,14 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
     {
         Debug.Log("ActiveButtonSelected is down");
 
-        buttons[currentMenuButtonSelectedIndex].Trigger();
+        if (menu != null && menu.activeInHierarchy)
+        {
+            buttons[currentMenuButtonSelectedIndex].Trigger();
+        }
+        else if(endGameMenu != null && endGameMenu.activeInHierarchy)
+        {
+            endGameButtons[currentEndGameMenuButtonSelectedIndex].Trigger();
+        }
     }
 
     public void CheckButtonSelected()
@@ -123,15 +130,14 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (buttons[i] == buttons[currentMenuButtonSelectedIndex])
-                {
-                    buttons[i].GetComponent<Image>().color = buttons[i].selectedColor;
-                }
-                else
+                if (i != currentMenuButtonSelectedIndex)
                 {
                     buttons[i].GetComponent<Image>().color = buttons[i].notSelectedColor;
+                    Debug.Log(buttons[i].GetComponent<Image>().color);
                 }
             }
+            Debug.Log(buttons[currentMenuButtonSelectedIndex].GetComponent<Image>().color);
+            buttons[currentMenuButtonSelectedIndex].GetComponent<Image>().color = buttons[currentMenuButtonSelectedIndex].selectedColor;
         }
     }
 
@@ -141,15 +147,9 @@ public class GlobalPlayerCanvasManager : MonoBehaviour
         {
             for (int i = 0; i < endGameButtons.Count; i++)
             {
-                if (endGameButtons[i] == endGameButtons[currentEndGameMenuButtonSelectedIndex])
-                {
-                    endGameButtons[i].GetComponent<Image>().color = endGameButtons[i].selectedColor;
-                }
-                else
-                {
                     endGameButtons[i].GetComponent<Image>().color = endGameButtons[i].notSelectedColor;
-                }
             }
+            endGameButtons[currentEndGameMenuButtonSelectedIndex].GetComponent<Image>().color = endGameButtons[currentEndGameMenuButtonSelectedIndex].selectedColor;
         }
     }
 

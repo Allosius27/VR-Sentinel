@@ -20,7 +20,9 @@ public class DebugMenu : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             OpenMenu();
+        }
     }
 
     public void OpenEndGameMenu(bool value)
